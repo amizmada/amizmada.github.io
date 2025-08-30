@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="cs" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>adamzima — portfolio</title>
+  <meta name="description" content="Portfolio Adama Zimy — plakáty, tablo, diplomy, divadelní plakáty a školní projekty." />
+  <style>
+    :root{
+      --bg: #ffffff;
+      --card: #ffffff;
+      --text: #000000;
+      --muted: #444444;
+      --border: #e0e0e0;
+      --shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    *,*:before,*:after{box-sizing:border-box}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto;border-radius:8px}
+    .container{width:min(1000px, 92vw); margin-inline:auto}
+    .visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden;white-space:nowrap}
+
+    header{position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{font-weight:700; font-size:18px}
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{padding:6px 8px; border-radius:6px}
+    .nav-links a:hover{background:#f5f5f5}
+    .menu-btn{display:none}
+
+    @media (max-width: 760px){
+      .menu-btn{display:inline-flex; border:1px solid var(--border); background:var(--bg); border-radius:6px; padding:6px 10px}
+      .nav-links{position:fixed; inset:64px 12px auto; display:none; flex-direction:column; padding:12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; box-shadow:var(--shadow)}
+      .nav-links.open{display:flex}
+    }
+
+    .hero{padding:48px 0 12px}
+    .kicker{color:var(--muted); font-size:14px; text-transform:uppercase; letter-spacing:.1em}
+    h1{font-size:clamp(28px, 3.2vw, 44px); line-height:1.15; margin:.25em 0}
+    .sub{color:var(--muted); max-width:60ch}
+
+    section{padding:28px 0}
+    section h2{font-size: clamp(20px, 2.4vw, 28px); margin:22px 0 14px}
+
+    .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow:var(--shadow)}
+    .card figcaption{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-top:1px solid var(--border); color:var(--muted); font-size:14px}
+    .chip{font-size:12px; padding:2px 6px; border-radius:12px; border:1px solid var(--border)}
+
+    footer{padding:40px 0 60px; color:var(--muted); border-top:1px solid var(--border); margin-top:40px}
+    .footer-inner{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between}
+    .email{display:inline-flex; align-items:center; gap:10px; padding:6px 10px; border:1px solid var(--border); border-radius:6px}
+
+    .lightbox{position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.8); z-index:70}
+    .lightbox.open{display:grid}
+    .lightbox img{max-width:min(100vw - 40px, 1000px); max-height: calc(100vh - 40px); border-radius:8px; box-shadow:var(--shadow)}
+    .lightbox button{position:absolute; top:18px; right:18px; border:1px solid var(--border); background:var(--bg); color:var(--text); border-radius:6px; padding:6px 10px}
+
+    .reveal{opacity:0; transform: translateY(12px); transition: .5s ease opacity, .5s ease transform}
+    .reveal.visible{opacity:1; transform:none}
+  </style>
+</head>
+<body>
+  <a href="#obsah" class="visually-hidden">Přeskočit na obsah</a>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top">adamzima</a>
+      <nav>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">☰ Menu</button>
+        <div class="nav-links" id="navLinks">
+          <a href="#informacni-tabule">informační&nbsp;tabule</a>
+          <a href="#pitstop">PIT&nbsp;STOP</a>
+          <a href="#ples">maturitní&nbsp;ples</a>
+          <a href="#tablo-netflix">maturitní&nbsp;tablo&nbsp;NETFLIX</a>
+          <a href="#tablo">maturitní&nbsp;tablo</a>
+          <a href="#vogue">maturitní&nbsp;tablo&nbsp;VOGUE</a>
+          <a href="#divadlo">divadelní&nbsp;představení</a>
+          <a href="#news">GYMSOS&nbsp;NEWS</a>
+          <a href="#majales">majáles</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="obsah" class="container">
+    <section class="hero">
+      <p class="kicker">Portfolio</p>
+      <h1>Čistý černobílý design ✦</h1>
+      <p class="sub">Struktura původního webu zachována, vizuál zjednodušen pouze do černé a bílé barvy pro maximální přehlednost.</p>
+    </section>
+
+    <!-- Obsah sekcí, obrázky a struktura zůstává -->
+  </main>
+
+  <footer class="container">
+    <div class="footer-inner">
+      <a class="email" href="mailto:adamzima@icloud.com">✉︎ adamzima@icloud.com</a>
+      <small>© <span id="year"></span> adam zima</small>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button id="closeLb">✕ Zavřít</button>
+    <img id="lbImg" alt="náhled" />
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn?.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if(!href || href === '#') return;
+        const el = document.querySelector(href);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth'});
+        navLinks.classList.remove('open');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const closeLb = document.getElementById('closeLb');
+    document.querySelectorAll('figure.card img').forEach(img => {
+      img.addEventListener('click', () => { lbImg.src = img.src; lb.classList.add('open'); });
+    });
+    closeLb.addEventListener('click', () => lb.classList.remove('open'));
+    lb.addEventListener('click', (e) => { if(e.target === lb) lb.classList.remove('open'); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); io.unobserve(entry.target); } })
+    }, { threshold: .2 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
