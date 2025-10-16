@@ -1,0 +1,77 @@
+{
+  "projects": [
+    {
+    "slug": "informacni-tabule",
+    "title": "informační tabule",
+    "subtitle": "Židovský hřbitov v Moravských Budějovcích",
+    "cover": "assets/informacni_tabule/informacni_tabule.jpg",
+    "columns": 2,
+    "images": [
+      "assets/informacni_tabule/informacni_tabule2.jpg",
+      "assets/informacni_tabule/informacni_tabule3.jpg"
+    ],
+    "description": "",
+    "layout": "two"
+  },
+  {
+    "slug": "pitstop",
+    "title": "PIT STOP",
+    "subtitle": "počítačová hra",
+    "cover": "assets/pitstop/pitstop.jpg",
+    "hero": "assets/pitstop/pitstop.jpg",    
+    "columns": 2,                         
+    "images": [
+      "assets/pitstop/pitstop2.jpg",
+      "assets/pitstop/pitstop3.jpg",
+      "assets/pitstop/pitstop4.jpg",
+      "assets/pitstop/pitstop5.jpg",
+      "assets/pitstop/pitstop6.jpg"
+    ],
+    "description": "",
+    "layout": "two"
+  },
+  {
+    "slug": "maturitni-ples",
+    "title": "maturitní ples",
+    "subtitle": "plakát a propagační materiály",
+    "cover": "assets/maturitni_ples/maturitni_ples.jpg",
+    "hero": "assets/maturitni_ples/maturitni_ples.jpg",    
+    "columns": 3,                         
+    "images": [
+      "assets/maturitni_ples/maturitni_ples2.jpg",
+      "assets/maturitni_ples/maturitni_ples3.jpg",
+      "assets/maturitni_ples/maturitni_ples4.jpg",
+      "assets/maturitni_ples/maturitni_ples5.jpg",
+      "assets/maturitni_ples/maturitni_ples6.jpg"
+    ],
+    "description": ""
+  },
+  {
+    "slug": "maturitni-tablo-figurky",
+    "title": "maturitní tablo",
+    "subtitle": "návrh a úprava fotografií",
+    "cover": "assets/maturitni-tablo-figurky/maturitni-tablo-figurky.jpg",
+    "hero": "assets/maturitni-tablo-figurky/maturitni-tablo-figurky.jpg",    
+    "columns": 3,                         
+    "images": [
+      "assets/maturitni-tablo-figurky/maturitni-tablo-figurky.jpg"
+    ],
+    "description": ""
+  },
+  {
+    "slug": "gymsos-news",
+    "title": "časopis",
+    "subtitle": "grafický návrh a úprava fotografií",
+    "cover": "assets/gymsos_news/gymsos_news.jpg",
+    "hero": "assets/gymsos_news/gymsos_news.jpg",    
+    "columns": 3,                         
+    "images": [
+      "assets/gymsos_news/gymsos_news2.jpg",
+      "assets/gymsos_news/gymsos_news3.jpg",
+      "assets/gymsos_news/gymsos_news4.jpg",
+      "assets/gymsos_news/gymsos_news5.jpg"
+    ],
+    "description": ""
+  }  
+  ]
+}
