@@ -15,9 +15,9 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-appl
 .footer {
   display: flex;
   align-items: center;
-  justify-content: center;   /* ✅ zarovnání doprostřed */
-  padding: 24px 64px;        /* ponech dle sebe / tvých breakpoints */
-  text-align: center;        /* pro jistotu, když bude víc řádků */
+  justify-content: center;   /* â zarovnĂĄnĂ­ doprostĹed */
+  padding: 24px 64px;        /* ponech dle sebe / tvĂ˝ch breakpoints */
+  text-align: center;        /* pro jistotu, kdyĹž bude vĂ­c ĹĂĄdkĹŻ */
 }
 
 /* Grid: 3 full-width columns on desktop */
@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-appl
 /* HERO: split layout */
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 1fr; /* větší plocha pro obrázek vlevo */
+  grid-template-columns: 1.1fr 1fr; /* vÄtĹĄĂ­ plocha pro obrĂĄzek vlevo */
   gap: 48px;
   align-items: start;
   margin: 10px 0 40px;
@@ -41,21 +41,21 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-appl
 .desc { color: var(--fg); max-width: 60ch; }
 .desc p { margin: 0 0 12px; }
 
-/* Gallery: přepínání 2/3 sloupců pomocí tříd */
+/* Gallery: pĹepĂ­nĂĄnĂ­ 2/3 sloupcĹŻ pomocĂ­ tĹĂ­d */
 .gallery { display: grid; gap: 24px; }
 .gallery.cols-2 { grid-template-columns: repeat(2, 1fr); }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .gallery img { width: 100%; height: auto; display: block; }
 
-/* Řádek se dvěma projekty přes celou šířku */
+/* ĹĂĄdek se dvÄma projekty pĹes celou ĹĄĂ­Ĺku */
 .row-2 {
-  grid-column: 1 / -1;                 /* protáhne se přes všechny 3 sloupce rodiče */
+  grid-column: 1 / -1;                 /* protĂĄhne se pĹes vĹĄechny 3 sloupce rodiÄe */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;                            /* stejné mezery jako .grid */
+  gap: 40px;                            /* stejnĂŠ mezery jako .grid */
 }
 
-/* Responsivní zlom (tablet/mobil) – klidně přepiš na svá čísla */
+/* ResponsivnĂ­ zlom (tablet/mobil) â klidnÄ pĹepiĹĄ na svĂĄ ÄĂ­sla */
 @media (max-width: 1100px) { .row-2 { grid-template-columns: 1fr; } }
 @media (max-width: 640px)  { .row-2 { grid-template-columns: 1fr; } }
 
@@ -64,7 +64,7 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-appl
   .grid{grid-template-columns:repeat(2,1fr)}
   .header,.footer{padding-left:40px;padding-right:40px}
   .wrap{padding-left:40px;padding-right:40px}
-  .hero { grid-template-columns: 1fr; gap: 24px; } /* stack: obrázek nad textem */
+  .hero { grid-template-columns: 1fr; gap: 24px; } /* stack: obrĂĄzek nad textem */
 }
 @media (max-width:640px){
   .grid{grid-template-columns:1fr}
@@ -75,13 +75,13 @@ body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-appl
   .gallery.cols-2 { grid-template-columns: 1fr; }
 }
 
-/* (Nech své původní :root a @media(prefers-color-scheme:dark) beze změny) */
+/* (Nech svĂŠ pĹŻvodnĂ­ :root a @media(prefers-color-scheme:dark) beze zmÄny) */
 
-/* Ruční přebití (zůstane po kliknutí v localStorage) */
+/* RuÄnĂ­ pĹebitĂ­ (zĹŻstane po kliknutĂ­ v localStorage) */
 html[data-theme="dark"]  { --bg:#0a0a0a; --fg:#f5f5f5; --muted:#a3a3a3; --line:#222; }
 html[data-theme="light"] { --bg:#ffffff; --fg:#111111; --muted:#6b7280; --line:#e5e7eb; }
 
-/* Plovoucí tlačítko vpravo nahoře */
+/* PlovoucĂ­ tlaÄĂ­tko vpravo nahoĹe */
 .theme-toggle {
   position: fixed;
   top: 12px;
@@ -98,3 +98,12 @@ html[data-theme="light"] { --bg:#ffffff; --fg:#111111; --muted:#6b7280; --line:#
 }
 .theme-toggle:hover {border-color: grey; }
 
+
+
+/* Performance: avoid rendering off-screen until needed */
+.gallery, .grid { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
+
+/* Placeholder images appear as soft gray before load */
+.card div > img, .gallery img {
+  background: #e5e7eb;
+}
