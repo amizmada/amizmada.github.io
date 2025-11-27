@@ -262,9 +262,19 @@
             .contact-section { padding: 60px 20px; }
             .contact-link-large { font-size: 2rem; word-break: break-word; }
             .about-grid { grid-template-columns: 1fr; gap: 30px; }
-            .floating-dock { width: 90%; justify-content: center; gap: 5px; bottom: 20px; padding: 10px 15px; overflow-x: auto; }
-            .dock-item { padding: 6px 10px; font-size: 0.75rem; }
+            .floating-dock { 
+                width: max-content; /* Šířka se stane jen tak velkou, jak je potřeba */
+                max-width: 90%;     /* Pojistka, aby to nelezlo z obrazovky na mini mobilech */
+                
+                justify-content: center; 
+                gap: 15px; 
+                bottom: 20px; 
+                padding: 10px 25px; /* Trochu větší padding po stranách pro hezčí tvar */
+                overflow-x: visible; 
+            }
+            .dock-item { padding: 6px 5px; font-size: 0.75rem; }
             .dock-copy { display: none; } 
+            .dock-divider { display: none; }
             .dock-divider { display: none; }
             .close-modal { top: 20px; right: 20px; }
             .modal-title { font-size: 2.2rem; }
