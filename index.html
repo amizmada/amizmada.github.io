@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>adam zima</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2250%22 fill=%22%23CFFF00%22/></svg>">    <meta name="description" content="portfolio grafického designéra adama zimy. vizuální identita, ui design, tiskoviny a branding.">
-    <meta name="keywords" content="grafický design, portfolio, branding, ui design, typografie, adam zima">
-    <meta name="author" content="Adam Zima">
-    
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">    
+
     <meta property="og:title" content="adam zima">
     <meta property="og:description" content="digitální & printový design">
     <meta property="og:image" content="pitstop.jpg"> 
@@ -306,14 +305,14 @@
     </nav>
 
     <header>
-        <h1>digitální & printový design</h1>
+        <h1>digital & print design</h1>
         <p class="hero-desc">tvořím čisté vizuální identity a funkční grafiku</p>
     </header>
 
     <div class="projects-container" id="work">
         <div class="project-row landscape reveal">
             <div class="image-container" onclick="openProject(0)">
-                <img src="pitstop.jpg" alt="pit stop" class="project-img" loading="lazy">
+                <img src="assets/pitstop/pitstop.webp" alt="pitstop" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
                 <span class="text-label">ui / digital</span>
@@ -325,11 +324,11 @@
         
         <div class="project-row portrait reveal">
             <div class="image-container" onclick="openProject(1)">
-                <img src="maturitni_ples s.jpg" alt="maturitní ples" class="project-img" loading="lazy">
+                <img src="assets/maturitni_ples/maturitni_ples.webp" alt="maturitní ples" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
-                <span class="text-label">poster / print</span>
-                <h2>gymnazijní ples</h2>
+                <span class="text-label">event identity / print</span>
+                <h2>maturitní ples</h2>
                 <p class="desc">vizuální identita maturitního plesu. výrazná typografie a zlaté akcenty.</p>
                 <button class="liquid-btn" onclick="openProject(1)">detail projektu</button>
             </div>
@@ -337,23 +336,23 @@
 
         <div class="project-row landscape reveal">
             <div class="image-container" onclick="openProject(2)">
-                <img src="informacni_tabule.jpg" alt="informační tabule" class="project-img" loading="lazy">
+                <img src="assets/informacni_tabule/informacni_tabule.webp" alt="informační tabule" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
                 <span class="text-label">layout / print</span>
-                <h2>židovský hřbitov</h2>
-                <p class="desc">grafický návrh naučné stezky a informační tabule pro židovský hřbitov.</p>
+                <h2>informační tabule</h2>
+                <p class="desc">grafický návrh informační tabule pro židovský hřbitov.</p>
                 <button class="liquid-btn" onclick="openProject(2)">detail projektu</button>
             </div>
         </div>
 
         <div class="project-row portrait reveal">
             <div class="image-container" onclick="openProject(3)">
-                <img src="GYMSOS NEWS.jpg" alt="gymsos news" class="project-img" loading="lazy">
+                <img src="assets/gymsos_news/gymsos_news.webp" alt="gymsos news" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
                 <span class="text-label">editorial / print</span>
-                <h2>gymsos news</h2>
+                <h2>GYMSOS NEWS</h2>
                 <p class="desc">školní časopis gymnázia. sazba, typografie a redakční design.</p>
                 <button class="liquid-btn" onclick="openProject(3)">detail projektu</button>
             </div>
@@ -361,11 +360,11 @@
 
         <div class="project-row landscape reveal">
             <div class="image-container" onclick="openProject(4)">
-                <img src="Maturitní tablo - VOGUE.jpg" alt="vogue tablo" class="project-img" loading="lazy">
+                <img src="assets/tablo_figurky/" alt="vogue tablo" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
                 <span class="text-label">layout & edit / print</span>
-                <h2>maturitní vogue</h2>
+                <h2>maturitní tablo</h2>
                 <p class="desc">kreativní pojetí tabla ve stylu módního magazínu. studiová fotografie.</p>
                 <button class="liquid-btn" onclick="openProject(4)">detail projektu</button>
             </div>
@@ -373,7 +372,7 @@
 
         <div class="project-row portrait reveal">
             <div class="image-container" onclick="openProject(5)">
-                <img src="Maturitní tablo - NETFLIX.jpg" alt="netflix tablo" class="project-img" loading="lazy">
+                <img src="assets/tablo_vogue/tablo_vogue.webp" alt="maturitní tablo vogue" class="project-img" loading="lazy">
             </div>
             <div class="project-text">
                 <span class="text-label">layout and edit / print</span>
@@ -382,6 +381,19 @@
                 <button class="liquid-btn" onclick="openProject(5)">detail projektu</button>
             </div>
         </div>
+
+        <div class="project-row portrait reveal">
+            <div class="image-container" onclick="openProject(5)">
+                <img src="assets/tablo_netflix/tablo_netflix.webp" alt="netflix tablo" class="project-img" loading="lazy">
+            </div>
+            <div class="project-text">
+                <span class="text-label">layout and edit / print</span>
+                <h2>maturitní tablo</h2>
+                <p class="desc">interaktivní tablo inspirované streamovací platformou.</p>
+                <button class="liquid-btn" onclick="openProject(5)">detail projektu</button>
+            </div>
+        </div>
+
     </div>
 
     <section class="archive-section reveal">
@@ -390,11 +402,10 @@
             <p>výběr dalších prací</p>
         </div>
         <div class="archive-slider" id="slider">
-            <div class="archive-item" onclick="openArchive(this)"><img src="https://placehold.co/600x600/eee/999?text=logo" alt="logo" loading="lazy"></div>
-            <div class="archive-item" onclick="openArchive(this)"><img src="https://placehold.co/400x600/ddd/888?text=poster" alt="plakát" loading="lazy"></div>
-            <div class="archive-item" onclick="openArchive(this)"><img src="https://placehold.co/800x600/ccc/777?text=3d" alt="3d render" loading="lazy"></div>
-            <div class="archive-item" onclick="openArchive(this)"><img src="https://placehold.co/600x600/bbb/666?text=type" alt="typo" loading="lazy"></div>
-            <div class="archive-item" onclick="openArchive(this)"><img src="https://placehold.co/500x600/aaa/555?text=photo" alt="foto" loading="lazy"></div>
+            <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/plakat_divadlo.webp" alt="plakat divadlo" loading="lazy"></div>
+            <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/diplom.webp" alt="diplom" loading="lazy"></div>
+            <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/majales.webp" alt="majales" loading="lazy"></div>
+            <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/studentske_volby.webp" alt="studentske volby" loading="lazy"></div>
         </div>
     </section>
 
@@ -408,9 +419,9 @@
     <div class="floating-dock">
         <span class="dock-copy">© 2025 adam zima</span>
         <div class="dock-divider"></div>
-        <a href="#" class="dock-item">instagram</a>
-        <a href="#" class="dock-item">linkedin</a>
-        <a href="mailto:adamzima@icloud.com" class="dock-item">email</a>
+        <a href="instagram.com/adam_zima" class="dock-item">instagram</a>
+        <a href="https://www.linkedin.com/in/adam-zima-b99a3a207/" class="dock-item">linkedin</a>
+        <a href="mailto:adam@adamzima.com" class="dock-item">email</a>
     </div>
 
     <div id="modal-overlay" class="modal-overlay">
@@ -422,40 +433,46 @@
         /* DATA PROJEKTŮ */
         const projects = [
             {
-                title: "pit stop f1",
-                label: "ui / game design",
+                title: "PIT STOP",
+                label: "ui / digital",
                 desc: "návrh uživatelského rozhraní pro strategický simulátor závodů f1. cílem bylo vytvořit přehledný, ale vizuálně atraktivní dashboard, který hráči umožňuje rychle reagovat na změny v závodě. design systém zahrnuje tmavý režim s neonovou žlutou pro maximální kontrast, ikonografii pro různé typy pneumatik a počasí, a rozhraní pro výběr týmu a okruhu.",
-                gallery: ["pitstop.jpg", "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg"]
+                gallery: ["assets/pitstop/pitstop.webp", "assets/pitstop/pitstop1.webp", "assets/pitstop/pitstop2.webp", "assets/pitstop/pitstop3.webp", "assets/pitstop/pitstop4.webp", "assets/pitstop/pitstop5.webp"]
             },
             {
                 title: "gymnazijní ples",
-                label: "poster / event identity",
+                label: "event identity / print & digital",
                 desc: "kompletní vizuální styl pro maturitní ples. od hlavního plakátu, přes vstupenky až po grafiku na sociální sítě.",
-                gallery: ["maturitni_ples s.jpg"]
+                gallery: ["assets/maturitni_ples/maturitni_ples.webp", "assets/maturitni_ples/maturitni_ples1.webp", "assets/maturitni_ples/maturitni_ples2.webp", "assets/maturitni_ples/maturitni_ples3.webp", "assets/maturitni_ples/maturitni_ples4.webp", "assets/maturitni_ples/maturitni_ples5.webp", "assets/maturitni_ples/maturitni_ples6.webp"]
             },
             {
-                title: "židovský hřbitov",
-                label: "print / layout",
+                title: "informační tabule",
+                label: "layout / print",
                 desc: "návrh informačního systému. cílem bylo vytvořit důstojnou a informativní grafiku, která zapadne do historického kontextu.",
-                gallery: ["informacni_tabule.jpg"]
+                gallery: ["assets/informacni_tabule/informacni_tabule.webp", "assets/informacni_tabule/informacni_tabule1.webp", "assets/informacni_tabule/informacni_tabule2.webp"]
             },
             {
-                title: "gymsos news",
-                label: "editorial / print design",
+                title: "GYMSOS NEWS",
+                label: "editorial / print & digital",
                 desc: "sazba školního časopisu. práce s mřížkou, typografií a hierarchií textu pro atraktivní čtenářský zážitek.",
-                gallery: ["GYMSOS NEWS.jpg"]
+                gallery: ["assets/gymsos_news/gymsos_news.webp", "assets/gymsos_news/gymsos_news1.webp", "assets/gymsos_news/gymsos_news2.webp", "assets/gymsos_news/gymsos_news3.webp", "assets/gymsos_news/gymsos_news4.webp", "assets/gymsos_news/gymsos_news5.webp"]
             },
-            {
-                title: "maturitní vogue",
-                label: "branding / concept",
-                desc: "netradiční tablo. koncept, art direction focení a finální postprodukce ve stylu módního magazínu.",
-                gallery: ["Maturitní tablo - VOGUE.jpg"]
-            },
-            {
-                title: "netflix tablo",
-                label: "ui / concept",
+             {
+                title: "maturitní tablo",
+                label: "layout / print",
                 desc: "virální koncept tabla. převedení digitálního rozhraní do tiskové podoby velkého formátu.",
-                gallery: ["Maturitní tablo - NETFLIX.jpg"]
+                gallery: ["assets/maturitni_tablo_figurky/maturitni_tablo_figurky.webp"]
+            },
+            {
+                title: "maturitní tablo",
+                label: "layout / print",
+                desc: "netradiční tablo. koncept, art direction focení a finální postprodukce ve stylu módního magazínu.",
+                gallery: ["assets/maturitni_tablo_vogue/maturitni_tablo_vogue.webp"]
+            },
+            {
+                title: "maturitní tablo",
+                label: "layout / print",
+                desc: "virální koncept tabla. převedení digitálního rozhraní do tiskové podoby velkého formátu.",
+                gallery: ["assets/maturitni_tablo_netflix/maturitni_tablo_netflix.webp"]
             }
         ];
 
@@ -473,7 +490,7 @@
                     </p>
                     <div class="contact-item">
                         <h4 style="margin-bottom:5px; color:#999; font-size:0.8rem; letter-spacing:1px;">kontakt</h4>
-                        <a href="mailto:adamzima@icloud.com" style="font-size: 1.1rem; color: #111; text-decoration: none;">adamzima@icloud.com</a>
+                        <a href="mailto:adam@adamzima.com" style="font-size: 1.1rem; color: #111; text-decoration: none;">adam@adamzima.com</a>
                     </div>
                 </div>
             </div>
