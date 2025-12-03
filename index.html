@@ -235,7 +235,7 @@
         }
         .close-modal:hover { opacity: 0.7; }
 
-        .modal-title { font-size: 3rem; font-weight: 600; margin-bottom: 15px; line-height: 1.1; letter-spacing: -1px; }
+        .about-text-content .modal-title { font-size: 2.2rem; font-weight: 400; letter-spacing: -1px; line-height: 1.3; }
         .modal-meta { font-size: 0.8rem; color: #999; letter-spacing: 1.5px; margin-bottom: 30px; display: block; }
         .modal-desc { font-size: 1rem; color: #444; line-height: 1.7; max-width: 100%; margin-bottom: 50px; }
         
@@ -276,7 +276,7 @@
             .dock-divider { display: none; }
             .dock-divider { display: none; }
             .close-modal { top: 20px; right: 20px; }
-            .modal-title { font-size: 2.2rem; }
+            .about-text-content .modal-title { font-size: 1.8rem;}
             #soft-glow {
                 width: 400px;  /* Zmenšeno z 900px */
                 height: 400px; 
@@ -493,13 +493,14 @@
         const aboutContent = `
             <div class="about-grid">
                 <div class="about-img-wrapper">
-                    <img src="https://placehold.co/600x800/e5e5e5/999?text=adam+zima" alt="adam zima" class="about-photo">
+                    <img src="adam.jpg" alt="adam zima" class="about-photo">
                 </div>
                 <div class="about-text-content">
-                    <h1 class="modal-title">ahoj, jsem adam.</h1>
+                    <h1 class="modal-title">jsem adam.</h1>
                     <p class="modal-desc">
-                    tbd
-                    </p>
+                        jsem grafický designér se zaměřením na vizuální identity a tiskoviny. baví mě hledat jednoduchá vizuální řešení složitých zadání.
+                        <br><br>
+                        věřím, že design není jen o tom, jak věci vypadají, ale především jak fungují.
                     <div class="contact-item">
                         <h4 style="margin-bottom:5px; color:#999; font-size:0.8rem; letter-spacing:1px;">kontakt</h4>
                         <a href="mailto:adam@adamzima.com" style="font-size: 1.1rem; color: #111; text-decoration: none;">adam@adamzima.com</a>
