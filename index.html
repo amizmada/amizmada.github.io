@@ -244,6 +244,29 @@
 
         .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
         .about-photo { width: 100%; aspect-ratio: 3/4; background: #ddd; object-fit: cover; border-radius: 12px; }
+        
+        .text-link {
+            text-decoration: none;      /* Žádné klasické tenké podtržení */
+            color: #000;                /* Černý text */
+            font-weight: 600;           /* Tučnější, aby to bylo vidět */
+            
+            /* --- EFEKT FIXU --- */
+            /* Vytvoříme žluté pozadí, které má na výšku jen 35% */
+            background-image: linear-gradient(#CFFF00, #CFFF00);
+            background-size: 100% 20%;  /* Šířka 100%, Výška 35% (jen spodek písmen) */
+            background-repeat: no-repeat;
+            background-position: 0 90%; /* Umístění dole */
+            
+            /* Plynulá animace vytažení barvy */
+            transition: background-size 0.25s ease-in-out;
+            padding: 0 2px; /* Malý odstup, aby barva nezačínala hned na písmenku */
+        }
+
+        /* Při najetí myší se barva vytáhne na celou výšku */
+        .text-link:hover {
+            background-size: 100% 100%; /* Změníme výšku na 100% */
+            cursor: pointer;
+        }
 
         /* MEDIA QUERIES */
         @media (max-width: 1024px) { .project-text { padding: 0 40px; } h1 { font-size: 3.5rem; } }
@@ -460,10 +483,10 @@
         /* DATA PROJEKTŮ */
         const projects = [
             {
-                title: "APARTMÁN U LUDVÍČKA",
+                title: "U LUDVÍČKA",
                 label: "webdesign / digital",
-                desc: "",
-                gallery: ["assets/pitstop/uludvicka.png", "assets/pitstop/pitstop1.webp", "assets/pitstop/pitstop2.webp", "assets/pitstop/pitstop3.webp", "assets/pitstop/pitstop4.webp", "assets/pitstop/pitstop5.webp"]
+                desc: "web na <a href='https://www.uludvicka.cz' target='_blank' class='text-link'>uludvicka.cz</a>",
+                gallery: ["assets/uludvicka/uludvicka1.webp"]
             },
             {
                 title: "PIT STOP",
@@ -621,7 +644,7 @@
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
             preloader.classList.add('hidden');
-            }, 3500); // Malé zpoždění pro efekt
+            }, 500); // Malé zpoždění pro efekt
         });
     </script>
 
