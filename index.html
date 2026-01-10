@@ -67,14 +67,16 @@
             position: relative;
             min-height: 100vh;
             padding-bottom: 150px;
-            
-            /* 3. FADE IN ANIMACE PŘI NAČTENÍ */
-            animation: fadeInPage 1s ease-out;
         }
 
         @keyframes fadeInPage {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animujeme jen header a projekty, preloader zůstane viditelný */
+        header, .projects-container, .archive-section, .contact-section {
+            animation: fadeInPage 1s ease-out;
         }
 
         /* --- POZADÍ --- */
@@ -663,7 +665,7 @@
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
             preloader.classList.add('hidden');
-            }, 3000); // Malé zpoždění pro efekt
+            }, 4000); // Malé zpoždění pro efekt
         });
     </script>
 
