@@ -153,6 +153,8 @@
             background: var(--accent); opacity: 0; z-index: -1; transition: opacity 0.4s ease; filter: blur(15px);
         }
         .liquid-btn:hover::before { opacity: 0.4; }
+        
+        .liquid-btn:disabled { opacity: 0.7; cursor: wait; }
 
         .landscape .image-container { width: 65%; }
         .portrait .image-container { width: 45%; }
@@ -185,7 +187,7 @@
         }
         .archive-item:hover img { opacity: 1; }
 
-        /* --- KONTAKT --- */
+        /* --- KONTAKT SECTION (jen text) --- */
         .contact-section {
             max-width: var(--max-width); margin: 0 auto; padding: 100px 50px;
             border-top: 1px solid #eee; text-align: center;
@@ -193,7 +195,7 @@
         .contact-link-large {
             font-size: 3.5rem; font-weight: 600; letter-spacing: -1.5px;
             color: var(--text-main); text-decoration: none;
-            transition: color 0.3s; display: inline-block; margin-top: 10px;
+            transition: color 0.3s; display: inline-block; margin-top: 10px; cursor: pointer;
         }
         .contact-link-large:hover { color: #999; }
         .contact-sub { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0; }
@@ -214,7 +216,7 @@
 
         footer { height: 50px; }
 
-        /* --- MODAL --- */
+        /* --- MODAL (OBECNÝ) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
@@ -271,6 +273,54 @@
             cursor: pointer;
         }
 
+        /* --- STYLY PRO KONTAKTNÍ FORMULÁŘ --- */
+        .contact-form {
+            max-width: 500px;
+            margin: 0;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group { width: 100%; }
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            outline: none;
+            resize: none; /* ZRUŠENO ZVĚTŠOVÁNÍ */
+        }
+        .form-input:focus {
+            border-color: #000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .form-input::placeholder { color: #aaa; font-weight: 400; }
+
+        /* --- NOVÉ STYLY PRO SLUŽBY --- */
+        .services-list {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        .services-list h4 {
+            font-size: 0.8rem; color: #999; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 20px; text-transform: lowercase;
+        }
+        .services-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .service-item {
+            font-size: 1rem; font-weight: 500; color: #111; display: flex; align-items: center; gap: 10px;
+        }
+        .service-item::before {
+            content: ''; display: block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;
+        }
+
         /* MEDIA QUERIES */
         @media (max-width: 1024px) { .project-text { padding: 0 40px; } h1 { font-size: 3.5rem; } }
         
@@ -308,6 +358,9 @@
                 height: 400px; 
                 filter: blur(90px); 
             }
+            
+            /* Mobilní úprava služeb - pod sebe */
+            .services-grid { grid-template-columns: 1fr; }
         }
 
         #preloader {
@@ -340,7 +393,7 @@
         <div class="logo" onclick="window.scrollTo(0,0);">adam zima</div>
         <div class="nav-links">
             <a onclick="openAbout()">o mně</a>
-            <a href="#contact">napište mi</a>
+            <a onclick="openContact()">napište mi</a>
         </div>
     </nav>
 
@@ -476,7 +529,7 @@
 
     <section id="contact" class="contact-section">
         <p class="contact-sub">máte nápad na projekt?</p>
-        <a href="mailto:adam@adamzima.com" class="contact-link-large">napište mi.</a>
+        <a onclick="openContact()" class="contact-link-large">napište mi.</a>
     </section>
 
     <footer></footer>
@@ -484,7 +537,7 @@
     <div class="floating-dock">
         <span class="dock-copy">© 2025 adam zima</span>
         <div class="dock-divider"></div>
-        <a href="https://www.instagram.com/adam_zima?igsh=d3Z0ZjNsdXZ3aGJw&utm_source=qr" class="dock-item">instagram</a>
+        <a href="https://github.com/amizmada" class="dock-item">github</a>
         <a href="https://www.linkedin.com/in/adam-zima-b99a3a207/" class="dock-item">linkedin</a>
         <a href="mailto:adam@adamzima.com" class="dock-item">email</a>
     </div>
@@ -492,6 +545,30 @@
     <div id="modal-overlay" class="modal-overlay">
         <button class="close-modal" onclick="closeModal()">zavřít</button>
         <div class="modal-container" id="modal-content"></div>
+    </div>
+
+    <div id="contact-modal-overlay" class="modal-overlay">
+        <button class="close-modal" onclick="closeContact()">zavřít</button>
+        <div class="modal-container">
+            <span class="modal-meta">kontakt</span>
+            <h1 class="modal-title">napište mi.</h1>
+            <p class="modal-desc">máte nápad na projekt nebo se chcete jen zeptat?</p>
+            
+            <form id="popup-contact-form" action="https://formspree.io/f/xeeejrlr" method="POST" class="contact-form">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="váš email" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="jak vám mohu pomoci?" rows="8" required class="form-input"></textarea>
+                </div>
+                <button type="submit" class="liquid-btn" id="popup-submit-btn">odeslat zprávu</button>
+            </form>
+
+            <div id="popup-form-status" style="display: none; text-align: left; margin-top: 20px; color: var(--text-main);">
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Díky za zprávu!</h3>
+                <p style="color: var(--text-muted);">Ozvu se vám co nejdříve.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -553,6 +630,7 @@
             }
         ];
 
+        /* OBSAH O MNĚ + NOVÁ SEKCE SLUŽBY */
         const aboutContent = `
             <div class="about-grid">
                 <div class="about-img-wrapper">
@@ -564,7 +642,19 @@
                         jsem grafický designér se zaměřením na vizuální identity a tiskoviny. baví mě hledat jednoduchá vizuální řešení složitých zadání.
                         <br><br>
                         věřím, že design není jen o tom, jak věci vypadají, ale především jak fungují.
-                    <div class="contact-item">
+                    </p>
+                    
+                    <div class="services-list">
+                        <h4>co dělám</h4>
+                        <div class="services-grid">
+                            <span class="service-item">vizuální identity</span>
+                            <span class="service-item">webdesign</span>
+                            <span class="service-item">plakáty, tiskoviny</span>
+                            <span class="service-item">úprava fotografií</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-item" style="margin-top: 40px;">
                         <h4 style="margin-bottom:5px; color:#999; font-size:0.8rem; letter-spacing:1px;">kontakt</h4>
                         <a href="mailto:adam@adamzima.com" style="font-size: 1.1rem; color: #111; text-decoration: none;">adam@adamzima.com</a>
                     </div>
@@ -572,6 +662,7 @@
             </div>
         `;
 
+        /* MODAL LOGIC (PROJECTS & ABOUT) */
         const modal = document.getElementById('modal-overlay');
         const modalContent = document.getElementById('modal-content');
 
@@ -615,6 +706,65 @@
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
+
+        /* CONTACT MODAL LOGIC */
+        const contactModal = document.getElementById('contact-modal-overlay');
+        
+        function openContact() {
+            contactModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContact() {
+            contactModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) closeContact();
+        });
+
+
+        /* AJAX CONTACT FORM HANDLING */
+        const popupForm = document.getElementById("popup-contact-form");
+        const popupStatus = document.getElementById("popup-form-status");
+        const popupSubmitBtn = document.getElementById("popup-submit-btn");
+
+        if(popupForm) {
+            popupForm.addEventListener("submit", async function(event) {
+                event.preventDefault();
+                
+                const originalBtnText = popupSubmitBtn.innerText;
+                popupSubmitBtn.innerText = "odesílám...";
+                popupSubmitBtn.disabled = true;
+
+                const data = new FormData(event.target);
+
+                try {
+                    const response = await fetch(event.target.action, {
+                        method: popupForm.method,
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        popupForm.style.display = "none";
+                        popupStatus.style.display = "block";
+                        popupForm.reset();
+                    } else {
+                        const jsonData = await response.json();
+                        alert("Chyba: " + (jsonData.errors ? jsonData.errors.map(e => e.message).join(", ") : "Něco se pokazilo."));
+                        popupSubmitBtn.innerText = originalBtnText;
+                        popupSubmitBtn.disabled = false;
+                    }
+                } catch (error) {
+                    alert("Oups! Problém s připojením.");
+                    popupSubmitBtn.innerText = originalBtnText;
+                    popupSubmitBtn.disabled = false;
+                }
+            });
+        }
+
 
         /* SLIDER */
         const slider = document.getElementById('slider');
@@ -665,7 +815,7 @@
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
             preloader.classList.add('hidden');
-            }, 4000); // Malé zpoždění pro efekt
+            }, 4000); 
         });
     </script>
 
