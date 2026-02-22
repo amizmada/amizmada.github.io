@@ -1,733 +1,817 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T9J5Z45NLJ"></script>
-    <script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T9J5Z45NLJ"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-T9J5Z45NLJ');
-    </script>
+  </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>adam zima</title>
 
-    <title>adam zima</title>
+  <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="https://www.adamzima.cz/assets/apple-icon.png">
 
-    <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="192x192">
-    <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="https://www.adamzima.cz/assets/apple-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@1,900&display=swap" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@1,900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-color:#fbfbfd;
+      --text-main:#1d1d1f;
+      --text-muted:#86868b;
+      --accent:#CFFF00;
+      --max-width:1200px;
+      --card-radius:20px;
+    }
 
-    <style>
-        :root {
-            --bg-color: #fbfbfd;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
-            --accent: #CFFF00;
-            --max-width: 1200px;
-            --card-radius: 20px;
-        }
+    *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    ::selection{ background-color:var(--accent); color:#000; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    ::-webkit-scrollbar{ width:6px; }
+    ::-webkit-scrollbar-track{ background:transparent; }
+    ::-webkit-scrollbar-thumb{ background-color:rgba(0,0,0,0.2); border-radius:10px; }
 
-        ::selection { background-color: var(--accent); color: #000; }
+    html{ scroll-behavior:smooth; }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+    body{
+      font-family:"Inter",-apple-system,sans-serif;
+      background-color:var(--bg-color);
+      color:var(--text-main);
+      line-height:1.6;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(207,255,0,0.04) 0px, transparent 40%),
+        radial-gradient(at 100% 100%, rgba(207,255,0,0.04) 0px, transparent 40%);
+    }
 
-        html { scroll-behavior: smooth; }
+    /* --- PRELOADER --- */
+    #preloader{
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:var(--bg-color); z-index:9999;
+      display:flex; justify-content:center; align-items:center;
+      transition:transform 0.8s cubic-bezier(0.7,0,0.2,1);
+    }
+    .loader-mask{ overflow:hidden; display:inline-block; padding:10px; }
+    .loader-text{
+      display:inline-block; font-weight:600; font-size:1.4rem; letter-spacing:-1px;
+      transform:translateY(100%);
+      animation:slideUpLoader 1s cubic-bezier(0.16,1,0.3,1) forwards 0.2s,
+               pulseText 1.5s infinite ease-in-out 1.2s;
+    }
+    @keyframes slideUpLoader{ to{ transform:translateY(0); } }
+    @keyframes pulseText{ 0%,100%{ opacity:0.4; } 50%{ opacity:1; } }
+    #preloader.hidden{ transform:translateY(-100%); pointer-events:none; }
 
-        body {
-            font-family: "Inter", -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            background-image:
-                radial-gradient(at 0% 0%, rgba(207, 255, 0, 0.04) 0px, transparent 40%),
-                radial-gradient(at 100% 100%, rgba(207, 255, 0, 0.04) 0px, transparent 40%);
-        }
+    /* --- REVEAL --- */
+    .reveal-up{
+      opacity:0; transform:translateY(40px);
+      transition:opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal-up.is-visible{ opacity:1; transform:translateY(0); }
 
-        /* --- DYNAMICKÝ PRELOADER --- */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-color); z-index: 9999;
-            display: flex; justify-content: center; align-items: center;
-            transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1);
-        }
-        .loader-mask { overflow: hidden; display: inline-block; padding: 10px; }
-        .loader-text {
-            display: inline-block; font-weight: 600; font-size: 1.4rem; letter-spacing: -1px;
-            transform: translateY(100%);
-            animation: slideUpLoader 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s, pulseText 1.5s infinite ease-in-out 1.2s;
-        }
-        @keyframes slideUpLoader { to { transform: translateY(0); } }
-        @keyframes pulseText { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-        #preloader.hidden { transform: translateY(-100%); pointer-events: none; }
+    /* --- NAV --- */
+    nav{
+      position:fixed; top:0; left:0; width:100%; height:80px; padding:0 50px;
+      display:flex; justify-content:space-between; align-items:center;
+      background:rgba(251,251,253,0.85); backdrop-filter:blur(20px);
+      z-index:1000;
+    }
+    .logo{ font-weight:600; font-size:0.95rem; color:#000; letter-spacing:-0.5px; cursor:pointer; }
+    .nav-links{ display:flex; gap:30px; align-items:center; }
+    .animated-link{
+      position:relative; font-size:0.85rem; color:var(--text-main); text-decoration:none;
+      font-weight:500; cursor:pointer; padding-bottom:2px; display:inline-block;
+    }
+    .animated-link::after{
+      content:''; position:absolute; width:100%; height:2px; bottom:0; left:0;
+      background-color:var(--accent);
+      transform:scaleX(0); transform-origin:bottom right; transition:transform 0.3s ease-out;
+    }
+    .animated-link:hover::after{ transform:scaleX(1); transform-origin:bottom left; }
 
-        /* --- SCROLL REVEAL ANIMACE --- */
-        .reveal-up {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-up.is-visible { opacity: 1; transform: translateY(0); }
+    /* --- HERO --- */
+    header{
+      height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+      padding:0 50px; max-width:var(--max-width); margin:0 auto;
+    }
+    .hero-title{
+      font-size:clamp(3rem,7vw,4.5rem); font-weight:600; letter-spacing:-2px; line-height:1.1;
+      margin-bottom:25px; max-width:900px; color:#111;
+    }
+    .hero-desc{ font-size:1.2rem; color:var(--text-muted); max-width:550px; font-weight:400; line-height:1.6; }
 
-        /* --- NAVIGACE & SJEDNOCENÉ ODKAZY --- */
-        nav {
-            position: fixed; top: 0; left: 0; width: 100%; height: 80px; padding: 0 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(251, 251, 253, 0.85); backdrop-filter: blur(20px);
-            z-index: 1000;
-        }
-        .logo { font-weight: 600; font-size: 0.95rem; color: #000; letter-spacing: -0.5px; cursor: pointer; }
+    /* --- PROJECTS: 2 FLEX COLUMNS + JS BALANCE --- */
+    .projects-wrap{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 50px 100px 50px;
+      display:flex;
+      gap:40px;
+      align-items:flex-start;
+    }
+    .projects-col{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:60px;
+      min-width:0;
+    }
 
-        .nav-links { display: flex; gap: 30px; align-items: center; }
+    .project-card{
+      display:block;
+      width:100%;
+      background:transparent;
+      border:none;
+      cursor:pointer;
+      position:relative;
+      z-index:1;
 
-        .animated-link {
-            position: relative; font-size: 0.85rem; color: var(--text-main); text-decoration: none; font-weight: 500; cursor: pointer; padding-bottom: 2px;
-            display: inline-block;
-        }
-        .animated-link::after {
-            content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0;
-            background-color: var(--accent); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out;
-        }
-        .animated-link:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+      /* anti-flicker vrstvy */
+      transform:translateZ(0);
+      -webkit-transform:translateZ(0);
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+      will-change:transform;
 
-        /* --- HERO --- */
-        header {
-            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-            padding: 0 50px; max-width: var(--max-width); margin: 0 auto;
-        }
-        .hero-title {
-            font-size: clamp(3rem, 7vw, 4.5rem); font-weight: 600; letter-spacing: -2px; line-height: 1.1; margin-bottom: 25px;
-            max-width: 900px; color: #111;
-        }
-        .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 550px; font-weight: 400; line-height: 1.6; }
+      /* izolace repaintu */
+      contain:paint;
+    }
 
-        /* --- PROJECTS: 2 FLEX SLOUPCE + JS BALANCE (spolehlivé) --- */
-        .projects-wrap{
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 50px 100px 50px;
+    .card-img-wrap{
+      width:100%;
+      border-radius:var(--card-radius);
+      overflow:hidden;
+      background:#f9f9fb;
 
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
+      position:relative;
+      transform:translate3d(0,0,0);
+      -webkit-transform:translate3d(0,0,0);
+      will-change:transform;
+      transition:transform 0.4s ease;
+    }
 
-        .projects-col{
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 60px;
-        }
+    /* shadow přes pseudo-element (Safari stabilnější než box-shadow transition) */
+    .card-img-wrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:inherit;
+      box-shadow:0 15px 35px rgba(0,0,0,0.06);
+      opacity:0;
+      transition:opacity 0.4s ease;
+      pointer-events:none;
+    }
 
-        /* KARTA */
-        .project-card{
-            display: block;
-            width: 100%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+    .project-img{
+      width:100%;
+      height:auto;
+      display:block;
+      transform:translate3d(0,0,0) scale(1);
+      -webkit-transform:translate3d(0,0,0) scale(1);
+      will-change:transform;
+      transition:transform 0.5s ease;
+    }
 
-            position: relative;
-            z-index: 1;
+    .card-body{ padding:25px 10px 0 10px; }
+    .card-label{
+      font-size:0.75rem; color:#999; letter-spacing:1.5px; font-weight:600;
+      margin-bottom:8px; display:block; text-transform:lowercase;
+    }
+    .card-title{
+      font-size:1.8rem; font-weight:600; letter-spacing:-1px;
+      margin-bottom:15px; color:#1d1d1f;
+    }
 
-            /* anti-flicker vrstvy */
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            will-change: transform;
+    .project-card:hover .card-img-wrap{
+      transform:translate3d(0,-6px,0);
+      -webkit-transform:translate3d(0,-6px,0);
+    }
+    .project-card:hover .card-img-wrap::after{ opacity:1; }
+    .project-card:hover .project-img{
+      transform:translate3d(0,0,0) scale(1.02);
+      -webkit-transform:translate3d(0,0,0) scale(1.02);
+    }
 
-            /* izolace repaintu */
-            contain: paint;
-        }
+    /* BUTTON */
+    .liquid-btn{
+      display:inline-flex; justify-content:center; align-items:center;
+      padding:14px 32px; font-size:0.9rem; font-weight:500; color:#000;
+      border-radius:100px; background:var(--accent); border:none; cursor:pointer;
+      transition:transform 0.3s ease, filter 0.3s ease; text-decoration:none;
+    }
+    .liquid-btn:hover{ filter:brightness(0.95); transform:scale(1.02); }
 
-        .card-img-wrap{
-            width: 100%;
-            border-radius: var(--card-radius);
-            overflow: hidden;
-            background: #f9f9fb;
+    /* --- ARCHIVE --- */
+    .archive-section{ width:100%; margin:0 auto; padding:0 0 100px 0; overflow:hidden; }
+    .archive-wrapper{ max-width:var(--max-width); margin:0 auto; padding:0 50px; }
+    .archive-header{ margin:0 auto 40px auto; padding:60px 0 0 0; border-top:1px solid rgba(0,0,0,0.05); }
+    .archive-header h3{ font-size:1.5rem; font-weight:600; margin-bottom:10px; }
+    .archive-header p{ font-size:0.9rem; color:var(--text-muted); }
 
-            position: relative;
-            transform: translate3d(0,0,0);
-            -webkit-transform: translate3d(0,0,0);
-            will-change: transform;
-            transition: transform 0.4s ease;
-        }
+    .archive-slider{ display:flex; gap:20px; overflow-x:auto; padding-bottom:30px; scrollbar-width:none; cursor:grab; align-items:flex-start; }
+    .archive-slider::-webkit-scrollbar{ display:none; }
 
-        /* shadow přes pseudo-element (Safari stabilnější než box-shadow transition) */
-        .card-img-wrap::after{
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
+    .archive-item{
+      height:400px; flex-shrink:0; background:#f0f0f0; cursor:pointer;
+      border-radius:12px; overflow:hidden;
+      position:relative;
+      transform:translate3d(0,0,0);
+      -webkit-transform:translate3d(0,0,0);
+      will-change:transform;
+      transition:transform 0.4s ease;
+      contain:paint;
+    }
+    .archive-item img{
+      height:100%; width:auto; display:block; opacity:0.9;
+      pointer-events:none; transition:0.4s ease;
+      transform:scale(1) translateZ(0);
+    }
+    .archive-item:hover{ transform:translate3d(0,-4px,0); -webkit-transform:translate3d(0,-4px,0); }
+    .archive-item:hover img{ opacity:1; transform:scale(1.01) translateZ(0); }
 
-        .project-img{
-            width: 100%;
-            height: auto;
-            display: block;
+    /* --- CONTACT --- */
+    .contact-section{
+      max-width:var(--max-width); margin:0 auto; padding:100px 50px;
+      border-top:1px solid #eee; text-align:center;
+    }
+    .contact-link-large{
+      position:relative; font-size:3.5rem; font-weight:600; letter-spacing:-1.5px;
+      color:var(--text-main); text-decoration:none; display:inline-block;
+      margin-top:10px; cursor:pointer; padding-bottom:5px;
+    }
+    .contact-link-large::after{
+      content:''; position:absolute; width:100%; height:6px; bottom:0; left:0;
+      background-color:var(--accent);
+      transform:scaleX(0); transform-origin:bottom right;
+      transition:transform 0.4s ease-out;
+      z-index:-1;
+    }
+    .contact-link-large:hover::after{ transform:scaleX(1); transform-origin:bottom left; }
 
-            transform: translate3d(0,0,0) scale(1);
-            -webkit-transform: translate3d(0,0,0) scale(1);
-            will-change: transform;
-            transition: transform 0.5s ease;
-        }
+    /* --- DOCK --- */
+    .floating-dock{
+      position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+      background:rgba(255,255,255,0.85); backdrop-filter:blur(16px);
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 20px 40px rgba(0,0,0,0.06);
+      padding:10px 25px; border-radius:100px; z-index:999;
+      display:flex; align-items:center; gap:20px; font-size:0.85rem;
+      color:var(--text-main); white-space:nowrap;
+    }
+    .dock-item{
+      color:var(--text-main); text-decoration:none; font-weight:500;
+      transition:all 0.2s ease; padding:8px 16px; border-radius:50px;
+    }
+    .dock-item:hover{ background-color:var(--accent); color:#000; }
 
-        .card-body { padding: 25px 10px 0 10px; }
-        .card-label { font-size: 0.75rem; color: #999; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 8px; display: block; text-transform: lowercase; }
-        .card-title { font-size: 1.8rem; font-weight: 600; letter-spacing: -1px; margin-bottom: 15px; color: #1d1d1f; }
+    .dock-copy{ color:var(--text-muted); font-weight:500; font-size:0.8rem; padding-left:10px; }
+    .dock-divider{ width:1px; height:15px; background:rgba(0,0,0,0.1); margin:0 5px; }
 
-        .project-card:hover .card-img-wrap{
-            transform: translate3d(0,-6px,0);
-            -webkit-transform: translate3d(0,-6px,0);
-        }
-        .project-card:hover .card-img-wrap::after{ opacity: 1; }
-        .project-card:hover .project-img{
-            transform: translate3d(0,0,0) scale(1.02);
-            -webkit-transform: translate3d(0,0,0) scale(1.02);
-        }
+    .svg-logo{ display:flex; align-items:center; justify-content:center; padding:6px 16px; border-radius:50px; transition:background-color 0.2s ease; }
+    .svg-logo:hover{ background-color:var(--accent); }
+    .zet-icon{ height:16px; width:auto; display:block; }
 
-        /* TLAČÍTKA */
-        .liquid-btn {
-            display: inline-flex; justify-content: center; align-items: center;
-            padding: 14px 32px; font-size: 0.9rem; font-weight: 500; color: #000;
-            border-radius: 100px; background: var(--accent); border: none; cursor: pointer;
-            transition: transform 0.3s ease, filter 0.3s ease; text-decoration: none;
-        }
-        .liquid-btn:hover { filter: brightness(0.95); transform: scale(1.02); }
+    /* --- MODAL --- */
+    .modal-overlay{
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(255,255,255,0.95); backdrop-filter:blur(10px);
+      z-index:2000; opacity:0; pointer-events:none; transition:opacity 0.4s ease;
+      overflow-y:auto;
+    }
+    .modal-overlay.active{ opacity:1; pointer-events:all; }
+    .modal-container{ max-width:900px; margin:80px auto; padding:0 20px 80px 20px; }
 
-        /* --- ARCHIV --- */
-        .archive-section { width: 100%; margin: 0 auto; padding: 0 0 100px 0; overflow: hidden; }
-        .archive-wrapper { max-width: var(--max-width); margin: 0 auto; padding: 0 50px; }
-        .archive-header { margin: 0 auto 40px auto; padding: 60px 0 0 0; border-top: 1px solid rgba(0,0,0,0.05); }
-        .archive-header h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; }
-        .archive-header p { font-size: 0.9rem; color: var(--text-muted); }
+    .close-modal{
+      position:fixed; top:0; right:50px; height:80px;
+      border:none; cursor:pointer; background:transparent;
+      font-family:inherit; font-size:0.85rem; font-weight:500; color:var(--text-main);
+      z-index:2001; display:flex; align-items:center;
+    }
+    .close-modal span{ position:relative; padding-bottom:2px; }
+    .close-modal span::after{
+      content:''; position:absolute; width:100%; height:2px; bottom:0; left:0;
+      background-color:var(--accent);
+      transform:scaleX(0); transform-origin:bottom right; transition:transform 0.3s ease-out;
+    }
+    .close-modal:hover span::after{ transform:scaleX(1); transform-origin:bottom left; }
 
-        .archive-slider { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scrollbar-width: none; cursor: grab; align-items: flex-start; }
-        .archive-slider::-webkit-scrollbar { display: none; }
+    .about-grid{ display:grid; grid-template-columns:1fr 1.5fr; gap:60px; align-items:center; }
+    .about-photo{
+      width:100%; aspect-ratio:3/4; background:#ddd; object-fit:cover;
+      border-radius:20px; box-shadow:0 20px 40px rgba(0,0,0,0.08);
+      position:relative; top:0; transition:top 0.4s ease;
+    }
+    .about-photo:hover{ top:-5px; }
 
-        .archive-item{
-            height: 400px;
-            flex-shrink: 0;
-            background: #f0f0f0;
-            cursor: pointer;
-            border-radius: 12px;
-            overflow: hidden;
+    .about-title{
+      font-size:clamp(2.5rem,5vw,4rem); font-weight:600; letter-spacing:-2px;
+      margin-bottom:20px; color:var(--text-main); line-height:1.1;
+    }
+    .about-desc{ font-size:1.1rem; color:#555; line-height:1.7; margin-bottom:40px; max-width:600px; }
 
-            position: relative;
-            transform: translate3d(0,0,0);
-            -webkit-transform: translate3d(0,0,0);
-            will-change: transform;
-            transition: transform 0.4s ease;
-            contain: paint;
-        }
-        .archive-item img { height: 100%; width: auto; display: block; opacity: 0.9; pointer-events: none; transition: 0.4s ease; transform: scale(1) translateZ(0); }
-        .archive-item:hover { transform: translate3d(0,-4px,0); -webkit-transform: translate3d(0,-4px,0); }
-        .archive-item:hover img { opacity: 1; transform: scale(1.01) translateZ(0); }
+    .services-list{ margin-top:40px; padding-top:40px; border-top:1px solid rgba(0,0,0,0.06); }
+    .services-list h4{
+      font-size:0.75rem; color:#999; letter-spacing:1.5px; font-weight:600;
+      margin-bottom:20px; text-transform:uppercase;
+    }
+    .services-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .service-item{ font-size:1.05rem; font-weight:400; color:#333; display:flex; align-items:center; gap:12px; transition:color 0.3s ease; }
+    .service-item:hover{ color:#000; }
+    .service-item::before{ content:''; display:block; width:8px; height:8px; background:var(--accent); border-radius:50%; }
 
-        /* --- KONTAKT --- */
-        .contact-section { max-width: var(--max-width); margin: 0 auto; padding: 100px 50px; border-top: 1px solid #eee; text-align: center; }
-        .contact-link-large {
-            position: relative; font-size: 3.5rem; font-weight: 600; letter-spacing: -1.5px; color: var(--text-main);
-            text-decoration: none; display: inline-block; margin-top: 10px; cursor: pointer; padding-bottom: 5px;
-        }
-        .contact-link-large::after {
-            content: ''; position: absolute; width: 100%; height: 6px; bottom: 0; left: 0;
-            background-color: var(--accent); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.4s ease-out; z-index: -1;
-        }
-        .contact-link-large:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+    .contact-form{ max-width:500px; margin:0; text-align:left; display:flex; flex-direction:column; gap:20px; }
+    .form-group{ width:100%; }
+    .form-input{
+      width:100%; padding:18px 20px; background:#fff;
+      border:1px solid rgba(0,0,0,0.1); border-radius:12px;
+      font-family:"Inter",sans-serif; font-size:1rem; color:var(--text-main);
+      transition:all 0.3s ease; outline:none; resize:none;
+    }
+    .form-input:focus{ border-color:#000; box-shadow:0 4px 12px rgba(0,0,0,0.05); }
+    #popup-submit-btn{ width:100%; padding:18px; font-size:1.05rem; margin-top:10px; }
 
-        /* --- FLOATING DOCK & ZET IKONA --- */
-        .floating-dock {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            padding: 10px 25px; border-radius: 100px; z-index: 999;
-            display: flex; align-items: center; gap: 20px; font-size: 0.85rem; color: var(--text-main); white-space: nowrap;
-        }
+    @media (max-width:768px){
+      nav, header{ padding:0 20px; }
+      .hero-title{ font-size:2.8rem; }
 
-        .dock-item { color: var(--text-main); text-decoration: none; font-weight: 500; transition: all 0.2s ease; padding: 8px 16px; border-radius: 50px; }
-        .dock-item:hover { background-color: var(--accent); color: #000; }
+      .projects-wrap{
+        padding:0 20px 80px 20px;
+        flex-direction:column;
+        gap:60px;
+      }
 
-        .dock-copy { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; padding-left: 10px; }
-        .dock-divider { width: 1px; height: 15px; background: rgba(0,0,0,0.1); margin: 0 5px; }
-
-        .svg-logo { display: flex; align-items: center; justify-content: center; padding: 6px 16px; border-radius: 50px; transition: background-color 0.2s ease; }
-        .svg-logo:hover { background-color: var(--accent); }
-        .zet-icon { height: 16px; width: auto; display: block; }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-            overflow-y: auto;
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-container { max-width: 900px; margin: 80px auto; padding: 0 20px 80px 20px; }
-
-        .close-modal {
-            position: fixed; top: 0; right: 50px; height: 80px;
-            border: none; cursor: pointer; background: transparent;
-            font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--text-main); z-index: 2001;
-            display: flex; align-items: center;
-        }
-        .close-modal span { position: relative; padding-bottom: 2px; }
-        .close-modal span::after {
-            content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0;
-            background-color: var(--accent); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out;
-        }
-        .close-modal:hover span::after { transform: scaleX(1); transform-origin: bottom left; }
-
-        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
-        .about-photo { width: 100%; aspect-ratio: 3/4; background: #ddd; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); position: relative; top: 0; transition: top 0.4s ease; }
-        .about-photo:hover { top: -5px; }
-
-        .about-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; letter-spacing: -2px; margin-bottom: 20px; color: var(--text-main); line-height: 1.1; }
-        .about-desc { font-size: 1.1rem; color: #555; line-height: 1.7; margin-bottom: 40px; max-width: 600px; }
-
-        .services-list { margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.06); }
-        .services-list h4 { font-size: 0.75rem; color:#999; letter-spacing:1.5px; font-weight:600; margin-bottom:20px; text-transform:uppercase; }
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .service-item { font-size: 1.05rem; font-weight: 400; color: #333; display: flex; align-items: center; gap: 12px; transition: color 0.3s ease; }
-        .service-item:hover { color: #000; }
-        .service-item::before { content: ''; display: block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
-
-        .contact-form { max-width: 500px; margin: 0; text-align: left; display: flex; flex-direction: column; gap: 20px; }
-        .form-group { width: 100%; }
-        .form-input { width: 100%; padding: 18px 20px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-family: "Inter", sans-serif; font-size: 1rem; color: var(--text-main); transition: all 0.3s ease; outline: none; resize: none; }
-        .form-input:focus { border-color: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        #popup-submit-btn { width: 100%; padding: 18px; font-size: 1.05rem; margin-top: 10px; }
-
-        @media (max-width: 768px) {
-            nav, header { padding: 0 20px; }
-            .hero-title { font-size: 2.8rem; }
-
-            .projects-wrap{
-                padding: 0 20px 80px 20px;
-                flex-direction: column;
-                gap: 60px;
-            }
-
-            .archive-wrapper { padding: 0 20px; }
-            .archive-item { height: 250px; }
-            .contact-link-large { font-size: 2.2rem; }
-            .floating-dock { gap: 10px; padding: 10px 15px; width: max-content; max-width: 95%; }
-            .dock-item { padding: 6px 12px; font-size: 0.75rem; }
-            .dock-copy, .dock-divider { display: none; }
-            .about-grid { grid-template-columns: 1fr; gap: 30px; }
-            .about-photo { aspect-ratio: 4/3; }
-            .services-grid { grid-template-columns: 1fr; }
-            .close-modal { right: 20px; }
-        }
-    </style>
+      .archive-wrapper{ padding:0 20px; }
+      .archive-item{ height:250px; }
+      .contact-link-large{ font-size:2.2rem; }
+      .floating-dock{ gap:10px; padding:10px 15px; width:max-content; max-width:95%; }
+      .dock-item{ padding:6px 12px; font-size:0.75rem; }
+      .dock-copy, .dock-divider{ display:none; }
+      .about-grid{ grid-template-columns:1fr; gap:30px; }
+      .about-photo{ aspect-ratio:4/3; }
+      .services-grid{ grid-template-columns:1fr; }
+      .close-modal{ right:20px; }
+    }
+  </style>
 </head>
+
 <body>
-
-    <div id="preloader">
-        <div class="loader-mask">
-            <span class="loader-text">adam zima</span>
-        </div>
+  <div id="preloader">
+    <div class="loader-mask">
+      <span class="loader-text">adam zima</span>
     </div>
+  </div>
 
-    <nav>
-        <div class="logo" onclick="window.scrollTo(0,0);">adam zima</div>
-        <div class="nav-links">
-            <a onclick="openAbout()" class="animated-link">o mně</a>
-            <a onclick="openContact()" class="animated-link">napište mi</a>
-        </div>
-    </nav>
-
-    <header>
-        <h1 class="hero-title" id="heroTitle">digital & print design</h1>
-        <p class="hero-desc">tvořím čisté vizuální identity a funkční grafiku</p>
-    </header>
-
-    <!-- PROJECTS: 2 sloupce + pool (JS to vybalancuje) -->
-    <div class="projects-wrap" id="work">
-        <div class="projects-col" id="col-left"></div>
-        <div class="projects-col" id="col-right"></div>
-
-        <!-- původní karty jsou tady (skryté) a JS je přesune do sloupců -->
-        <div id="projects-pool" style="display:none;">
-            <div class="project-card reveal-up" onclick="openProject(0)">
-                <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">webdesign / digital</span>
-                    <h2 class="card-title">U LUDVÍČKA</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(1)">
-                <div class="card-img-wrap"><img src="assets/domix/domix.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">webdesign / digital</span>
-                    <h2 class="card-title">DOMIX</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(2)">
-                <div class="card-img-wrap"><img src="assets/pitstop/mac.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">ui / digital</span>
-                    <h2 class="card-title">PIT STOP F1</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(3)">
-                <div class="card-img-wrap"><img src="assets/maturitni_ples/maturitni_ples.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">event identity / print</span>
-                    <h2 class="card-title">maturitní ples</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(4)">
-                <div class="card-img-wrap"><img src="assets/informacni_tabule/informacni_tabule.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">layout / print</span>
-                    <h2 class="card-title">informační tabule</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(5)">
-                <div class="card-img-wrap"><img src="assets/gymsos_news/gymsos_news.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">editorial / print</span>
-                    <h2 class="card-title">GYMSOS NEWS</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(6)">
-                <div class="card-img-wrap"><img src="assets/tablo_figurky/tablo_figurky.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">layout & edit</span>
-                    <h2 class="card-title">maturitní tablo</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(7)">
-                <div class="card-img-wrap"><img src="assets/tablo_vogue/tablo_vogue.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">layout and edit</span>
-                    <h2 class="card-title">maturitní tablo vogue</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-up" onclick="openProject(8)">
-                <div class="card-img-wrap"><img src="assets/tablo_netflix/tablo_netflix.webp" class="project-img" loading="lazy"></div>
-                <div class="card-body">
-                    <span class="card-label">layout and edit</span>
-                    <h2 class="card-title">maturitní tablo netflix</h2>
-                    <div class="liquid-btn">detail projektu</div>
-                </div>
-            </div>
-        </div>
+  <nav>
+    <div class="logo" onclick="window.scrollTo(0,0);">adam zima</div>
+    <div class="nav-links">
+      <a onclick="openAbout()" class="animated-link">o mně</a>
+      <a onclick="openContact()" class="animated-link">napište mi</a>
     </div>
+  </nav>
 
-    <section class="archive-section reveal-up">
-        <div class="archive-wrapper">
-            <div class="archive-header">
-                <h3>archiv</h3>
-                <p>výběr dalších prací</p>
-            </div>
-            <div class="archive-slider" id="slider">
-                <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/plakat_divadlo.webp" alt="poster"></div>
-                <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/diplom.webp" alt="diplom"></div>
-                <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/majales.webp" alt="poster"></div>
-                <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/studentske_volby.webp" alt="poster"></div>
-            </div>
+  <header>
+    <h1 class="hero-title" id="heroTitle">digital & print design</h1>
+    <p class="hero-desc">tvořím čisté vizuální identity a funkční grafiku</p>
+  </header>
+
+  <!-- PROJECTS: 2 sloupce + pool (JS to vybalancuje) -->
+  <div class="projects-wrap" id="work">
+    <div class="projects-col" id="col-left"></div>
+    <div class="projects-col" id="col-right"></div>
+
+    <!-- Pool je schovaný, ale karty se po loadu přesunou do sloupců -->
+    <div id="projects-pool" style="display:none;">
+      <div class="project-card reveal-up" onclick="openProject(0)">
+        <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">webdesign / digital</span>
+          <h2 class="card-title">U LUDVÍČKA</h2>
+          <div class="liquid-btn">detail projektu</div>
         </div>
-    </section>
+      </div>
 
-    <section id="contact" class="contact-section reveal-up">
-        <p style="color:var(--text-muted); font-size: 1.1rem; margin-bottom: 0;">máte nápad na projekt?</p>
-        <a onclick="openContact()" class="contact-link-large">napište mi.</a>
-    </section>
-
-    <div class="floating-dock">
-        <span class="dock-copy">© 2026 adam zima</span>
-        <div class="dock-divider"></div>
-        <a href="https://github.com/amizmada" class="dock-item" target="_blank">github</a>
-        <a href="mailto:adam@adamzima.com" class="dock-item">email</a>
-        <div class="dock-divider"></div>
-
-        <a href="https://zetdesign.cz" target="_blank" class="svg-logo" aria-label="zet_design">
-            <img src="assets/zet.svg" alt="zet_design" class="zet-icon">
-        </a>
-    </div>
-
-    <div id="modal-overlay" class="modal-overlay">
-        <button class="close-modal" onclick="closeModal()"><span>zavřít</span></button>
-        <div class="modal-container" id="modal-content"></div>
-    </div>
-
-    <div id="contact-modal-overlay" class="modal-overlay">
-        <button class="close-modal" onclick="closeContact()"><span>zavřít</span></button>
-        <div class="modal-container">
-            <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; margin-bottom: 30px; display: block; text-transform:uppercase; font-weight:600;">kontakt</span>
-            <h1 style="font-size: 2.2rem; font-weight: 600; letter-spacing: -1px; line-height: 1.3;">napište mi.</h1>
-            <p style="font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 50px;">máte nápad na projekt nebo se chcete jen zeptat?</p>
-
-            <form id="popup-contact-form" action="https://formspree.io/f/xeeejrlr" method="POST" class="contact-form">
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="váš email" required class="form-input">
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="jak vám mohu pomoci?" rows="6" required class="form-input"></textarea>
-                </div>
-                <button type="submit" class="liquid-btn" id="popup-submit-btn">odeslat zprávu</button>
-            </form>
-
-            <div id="popup-form-status" style="display: none; text-align: left; margin-top: 20px; color: var(--text-main);">
-                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Díky za zprávu!</h3>
-                <p style="color: var(--text-muted);">Ozvu se vám co nejdříve.</p>
-            </div>
+      <div class="project-card reveal-up" onclick="openProject(1)">
+        <div class="card-img-wrap"><img src="assets/domix/domix.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">webdesign / digital</span>
+          <h2 class="card-title">DOMIX</h2>
+          <div class="liquid-btn">detail projektu</div>
         </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(2)">
+        <div class="card-img-wrap"><img src="assets/pitstop/mac.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">ui / digital</span>
+          <h2 class="card-title">PIT STOP F1</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(3)">
+        <div class="card-img-wrap"><img src="assets/maturitni_ples/maturitni_ples.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">event identity / print</span>
+          <h2 class="card-title">maturitní ples</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(4)">
+        <div class="card-img-wrap"><img src="assets/informacni_tabule/informacni_tabule.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">layout / print</span>
+          <h2 class="card-title">informační tabule</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(5)">
+        <div class="card-img-wrap"><img src="assets/gymsos_news/gymsos_news.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">editorial / print</span>
+          <h2 class="card-title">GYMSOS NEWS</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(6)">
+        <div class="card-img-wrap"><img src="assets/tablo_figurky/tablo_figurky.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">layout & edit</span>
+          <h2 class="card-title">maturitní tablo</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(7)">
+        <div class="card-img-wrap"><img src="assets/tablo_vogue/tablo_vogue.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">layout and edit</span>
+          <h2 class="card-title">maturitní tablo vogue</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal-up" onclick="openProject(8)">
+        <div class="card-img-wrap"><img src="assets/tablo_netflix/tablo_netflix.webp" class="project-img" loading="lazy"></div>
+        <div class="card-body">
+          <span class="card-label">layout and edit</span>
+          <h2 class="card-title">maturitní tablo netflix</h2>
+          <div class="liquid-btn">detail projektu</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        const projects = [
-            { title: "U LUDVÍČKA", label: "webdesign / digital", desc: "web na <a href='https://www.uludvicka.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>uludvicka.cz</a>", gallery: ["assets/uludvicka/uludvicka1.webp"] },
-            { title: "DOMIX", label: "webdesign / digital", desc: "web na <a href='https://www.domix.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>domix.cz</a>", gallery: ["assets/domix/domix1.webp"] },
-            { title: "PIT STOP F1", label: "ui / digital", desc: "strategický simulátor formule 1. design uživatelského rozhraní a herních mechanik.", gallery: ["assets/pitstop/pitstop.webp", "assets/pitstop/pitstop1.webp", "assets/pitstop/pitstop2.webp", "assets/pitstop/pitstop3.webp", "assets/pitstop/pitstop4.webp", "assets/pitstop/pitstop5.webp"] },
-            { title: "maturitní ples", label: "event identity / print", desc: "vizuální identita maturitního plesu. výrazná typografie a zlaté akcenty.", gallery: ["assets/maturitni_ples/maturitni_ples.webp", "assets/maturitni_ples/maturitni_ples1.webp", "assets/maturitni_ples/maturitni_ples2.webp", "assets/maturitni_ples/maturitni_ples3.webp", "assets/maturitni_ples/maturitni_ples4.webp", "assets/maturitni_ples/maturitni_ples5.webp", "assets/maturitni_ples/maturitni_ples6.webp"] },
-            { title: "informační tabule", label: "layout / print", desc: "grafický návrh informační tabule pro židovský hřbitov.", gallery: ["assets/informacni_tabule/informacni_tabule.webp", "assets/informacni_tabule/informacni_tabule1.webp", "assets/informacni_tabule/informacni_tabule2.webp"] },
-            { title: "GYMSOS NEWS", label: "editorial / print", desc: "školní časopis gymnázia. sazba, typografie a redakční design.", gallery: ["assets/gymsos_news/gymsos_news.webp", "assets/gymsos_news/gymsos_news1.webp", "assets/gymsos_news/gymsos_news2.webp", "assets/gymsos_news/gymsos_news3.webp", "assets/gymsos_news/gymsos_news4.webp", "assets/gymsos_news/gymsos_news5.webp"] },
-            { title: "maturitní tablo", label: "layout & edit / print", desc: "kreativní pojetí tabla ve stylu módního magazínu. studiová fotografie.", gallery: ["assets/tablo_figurky/tablo_figurky.webp"] },
-            { title: "maturitní tablo vogue", label: "layout and edit / print", desc: "maturitní tablo inspirované modním magazínem.", gallery: ["assets/tablo_vogue/tablo_vogue.webp"] },
-            { title: "maturitní tablo netflix", label: "layout and edit / print", desc: "maturitní tablo inspirované streamovací platformou.", gallery: ["assets/tablo_netflix/tablo_netflix.webp"] }
-        ];
+  <section class="archive-section reveal-up">
+    <div class="archive-wrapper">
+      <div class="archive-header">
+        <h3>archiv</h3>
+        <p>výběr dalších prací</p>
+      </div>
+      <div class="archive-slider" id="slider">
+        <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/plakat_divadlo.webp" alt="poster"></div>
+        <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/diplom.webp" alt="diplom"></div>
+        <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/majales.webp" alt="poster"></div>
+        <div class="archive-item" onclick="openArchive(this)"><img src="assets/archiv/studentske_volby.webp" alt="poster"></div>
+      </div>
+    </div>
+  </section>
 
-        const aboutContent = `
-            <div class="about-grid">
-                <div class="about-img-wrapper">
-                    <img src="assets/adam.jpg" alt="adam zima" class="about-photo">
-                </div>
-                <div class="about-text-content">
-                    <h1 class="about-title">jsem adam.</h1>
-                    <p class="about-desc">
-                        jsem grafický designér se zaměřením na vizuální identity a tiskoviny. baví mě hledat jednoduchá vizuální řešení složitých zadání.
-                        <br><br>
-                        věřím, že design není jen o tom, jak věci vypadají, ale především jak fungují.
-                    </p>
+  <section id="contact" class="contact-section reveal-up">
+    <p style="color:var(--text-muted); font-size: 1.1rem; margin-bottom: 0;">máte nápad na projekt?</p>
+    <a onclick="openContact()" class="contact-link-large">napište mi.</a>
+  </section>
 
-                    <div class="services-list">
-                        <h4>co dělám</h4>
-                        <div class="services-grid">
-                            <span class="service-item">vizuální identity</span>
-                            <span class="service-item">webdesign</span>
-                            <span class="service-item">plakáty, tiskoviny</span>
-                            <span class="service-item">úprava fotografií</span>
-                        </div>
-                    </div>
+  <div class="floating-dock">
+    <span class="dock-copy">© 2026 adam zima</span>
+    <div class="dock-divider"></div>
+    <a href="https://github.com/amizmada" class="dock-item" target="_blank">github</a>
+    <a href="mailto:adam@adamzima.com" class="dock-item">email</a>
+    <div class="dock-divider"></div>
+    <a href="https://zetdesign.cz" target="_blank" class="svg-logo" aria-label="zet_design">
+      <img src="assets/zet.svg" alt="zet_design" class="zet-icon">
+    </a>
+  </div>
 
-                    <div style="margin-top: 50px;">
-                        <h4 style="margin-bottom:10px; color:#999; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;">kontakt</h4>
-                        <a href="mailto:adam@adamzima.com" style="font-size: 1.5rem; font-weight: 600; color: #111; text-decoration: none;" class="animated-link">adam@adamzima.com</a>
-                    </div>
-                </div>
+  <div id="modal-overlay" class="modal-overlay">
+    <button class="close-modal" onclick="closeModal()"><span>zavřít</span></button>
+    <div class="modal-container" id="modal-content"></div>
+  </div>
+
+  <div id="contact-modal-overlay" class="modal-overlay">
+    <button class="close-modal" onclick="closeContact()"><span>zavřít</span></button>
+    <div class="modal-container">
+      <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; margin-bottom: 30px; display: block; text-transform:uppercase; font-weight:600;">kontakt</span>
+      <h1 style="font-size: 2.2rem; font-weight: 600; letter-spacing: -1px; line-height: 1.3;">napište mi.</h1>
+      <p style="font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 50px;">máte nápad na projekt nebo se chcete jen zeptat?</p>
+
+      <form id="popup-contact-form" action="https://formspree.io/f/xeeejrlr" method="POST" class="contact-form">
+        <div class="form-group">
+          <input type="email" name="email" placeholder="váš email" required class="form-input">
+        </div>
+        <div class="form-group">
+          <textarea name="message" placeholder="jak vám mohu pomoci?" rows="6" required class="form-input"></textarea>
+        </div>
+        <button type="submit" class="liquid-btn" id="popup-submit-btn">odeslat zprávu</button>
+      </form>
+
+      <div id="popup-form-status" style="display: none; text-align: left; margin-top: 20px; color: var(--text-main);">
+        <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Díky za zprávu!</h3>
+        <p style="color: var(--text-muted);">Ozvu se vám co nejdříve.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const projects = [
+      { title: "U LUDVÍČKA", label: "webdesign / digital", desc: "web na <a href='https://www.uludvicka.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>uludvicka.cz</a>", gallery: ["assets/uludvicka/uludvicka1.webp"] },
+      { title: "DOMIX", label: "webdesign / digital", desc: "web na <a href='https://www.domix.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>domix.cz</a>", gallery: ["assets/domix/domix1.webp"] },
+      { title: "PIT STOP F1", label: "ui / digital", desc: "strategický simulátor formule 1. design uživatelského rozhraní a herních mechanik.", gallery: ["assets/pitstop/pitstop.webp","assets/pitstop/pitstop1.webp","assets/pitstop/pitstop2.webp","assets/pitstop/pitstop3.webp","assets/pitstop/pitstop4.webp","assets/pitstop/pitstop5.webp"] },
+      { title: "maturitní ples", label: "event identity / print", desc: "vizuální identita maturitního plesu. výrazná typografie a zlaté akcenty.", gallery: ["assets/maturitni_ples/maturitni_ples.webp","assets/maturitni_ples/maturitni_ples1.webp","assets/maturitni_ples/maturitni_ples2.webp","assets/maturitni_ples/maturitni_ples3.webp","assets/maturitni_ples/maturitni_ples4.webp","assets/maturitni_ples/maturitni_ples5.webp","assets/maturitni_ples/maturitni_ples6.webp"] },
+      { title: "informační tabule", label: "layout / print", desc: "grafický návrh informační tabule pro židovský hřbitov.", gallery: ["assets/informacni_tabule/informacni_tabule.webp","assets/informacni_tabule/informacni_tabule1.webp","assets/informacni_tabule/informacni_tabule2.webp"] },
+      { title: "GYMSOS NEWS", label: "editorial / print", desc: "školní časopis gymnázia. sazba, typografie a redakční design.", gallery: ["assets/gymsos_news/gymsos_news.webp","assets/gymsos_news/gymsos_news1.webp","assets/gymsos_news/gymsos_news2.webp","assets/gymsos_news/gymsos_news3.webp","assets/gymsos_news/gymsos_news4.webp","assets/gymsos_news/gymsos_news5.webp"] },
+      { title: "maturitní tablo", label: "layout & edit / print", desc: "kreativní pojetí tabla ve stylu módního magazínu. studiová fotografie.", gallery: ["assets/tablo_figurky/tablo_figurky.webp"] },
+      { title: "maturitní tablo vogue", label: "layout and edit / print", desc: "maturitní tablo inspirované modním magazínem.", gallery: ["assets/tablo_vogue/tablo_vogue.webp"] },
+      { title: "maturitní tablo netflix", label: "layout and edit / print", desc: "maturitní tablo inspirované streamovací platformou.", gallery: ["assets/tablo_netflix/tablo_netflix.webp"] }
+    ];
+
+    const aboutContent = `
+      <div class="about-grid">
+        <div class="about-img-wrapper">
+          <img src="assets/adam.jpg" alt="adam zima" class="about-photo">
+        </div>
+        <div class="about-text-content">
+          <h1 class="about-title">jsem adam.</h1>
+          <p class="about-desc">
+            jsem grafický designér se zaměřením na vizuální identity a tiskoviny. baví mě hledat jednoduchá vizuální řešení složitých zadání.
+            <br><br>
+            věřím, že design není jen o tom, jak věci vypadají, ale především jak fungují.
+          </p>
+
+          <div class="services-list">
+            <h4>co dělám</h4>
+            <div class="services-grid">
+              <span class="service-item">vizuální identity</span>
+              <span class="service-item">webdesign</span>
+              <span class="service-item">plakáty, tiskoviny</span>
+              <span class="service-item">úprava fotografií</span>
             </div>
-        `;
+          </div>
 
-        /* Hero parallax */
-        window.addEventListener('scroll', () => {
-            const title = document.getElementById('heroTitle');
-            title.style.transform = `translateY(${window.scrollY * 0.15}px)`;
-            title.style.opacity = 1 - (window.scrollY / 500);
+          <div style="margin-top: 50px;">
+            <h4 style="margin-bottom:10px; color:#999; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;">kontakt</h4>
+            <a href="mailto:adam@adamzima.com" style="font-size: 1.5rem; font-weight: 600; color: #111; text-decoration: none;" class="animated-link">adam@adamzima.com</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    /* Hero parallax */
+    window.addEventListener('scroll', () => {
+      const title = document.getElementById('heroTitle');
+      if (!title) return;
+      title.style.transform = `translateY(${window.scrollY * 0.15}px)`;
+      title.style.opacity = 1 - (window.scrollY / 500);
+    });
+
+    /* Reveal observer (důležité: NEpozorovat karty v display:none poolu) */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12 });
+
+    // Pozoruj jen reveal sekce mimo projektové karty; karty napojíme až po přesunu do sloupců
+    document.querySelectorAll('.reveal-up').forEach(el => {
+      if (!el.classList.contains('project-card')) observer.observe(el);
+    });
+
+    /* Preloader */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const pre = document.getElementById('preloader');
+        if (pre) pre.classList.add('hidden');
+      }, 1800);
+    });
+
+    /* MODAL */
+    const modal = document.getElementById('modal-overlay');
+    const modalContent = document.getElementById('modal-content');
+
+    function openProject(index) {
+      const p = projects[index];
+      const galleryHTML = p.gallery
+        .map(img => `<img src="${img}" alt="${p.title}" style="width:100%; border-radius:12px; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.05);" loading="lazy">`)
+        .join('');
+
+      modalContent.innerHTML = `
+        <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; text-transform:lowercase; margin-bottom: 20px; display: block; font-weight:600;">${p.label}</span>
+        <h1 style="font-size: 3rem; font-weight: 600; letter-spacing: -1.5px; margin-bottom: 20px;">${p.title}</h1>
+        <p style="font-size: 1.1rem; color: #444; margin-bottom: 50px; max-width: 600px; line-height:1.7;">${p.desc}</p>
+        <div>${galleryHTML}</div>
+      `;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function openAbout() {
+      modalContent.innerHTML = aboutContent;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    function openArchive(element) {
+      if (wasDragged) return;
+      const img = element.querySelector('img');
+      modalContent.innerHTML = `
+        <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; text-transform:lowercase; margin-bottom: 20px; display: block; font-weight:600;">archiv</span>
+        <img src="${img.src}" style="width:100%; border-radius:12px;">
+      `;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* Contact modal */
+    const contactModal = document.getElementById('contact-modal-overlay');
+
+    function openContact() {
+      contactModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeContact() {
+      contactModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    if (contactModal) {
+      contactModal.addEventListener('click', (e) => {
+        if (e.target === contactModal) closeContact();
+      });
+    }
+
+    /* Formspree submit */
+    const popupForm = document.getElementById("popup-contact-form");
+    const popupStatus = document.getElementById("popup-form-status");
+    const popupSubmitBtn = document.getElementById("popup-submit-btn");
+
+    if (popupForm) {
+      popupForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const originalBtnText = popupSubmitBtn.innerText;
+        popupSubmitBtn.innerText = "odesílám...";
+        popupSubmitBtn.disabled = true;
+
+        const data = new FormData(event.target);
+
+        try {
+          const response = await fetch(event.target.action, {
+            method: popupForm.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            popupForm.style.display = "none";
+            popupStatus.style.display = "block";
+            popupForm.reset();
+          } else {
+            const jsonData = await response.json();
+            alert("Chyba: " + (jsonData.errors ? jsonData.errors.map(e => e.message).join(", ") : "Něco se pokazilo."));
+            popupSubmitBtn.innerText = originalBtnText;
+            popupSubmitBtn.disabled = false;
+          }
+        } catch (error) {
+          alert("Oups! Problém s připojením.");
+          popupSubmitBtn.innerText = originalBtnText;
+          popupSubmitBtn.disabled = false;
+        }
+      });
+    }
+
+    /* Slider drag */
+    const slider = document.getElementById('slider');
+    let isDown = false, startX = 0, scrollLeft = 0, wasDragged = false;
+
+    if (slider) {
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true; wasDragged = false; slider.style.cursor = 'grabbing';
+        startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+      });
+      slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+      slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+      slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault(); wasDragged = true;
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        slider.scrollLeft = scrollLeft - walk;
+      });
+    }
+
+    /* --------------------------
+       ✅ TRUE BALANCED 2-COLUMN
+       -------------------------- */
+
+    let projectCards = [];
+
+    function getColumnHeights(left, right) {
+      // používáme scrollHeight, protože obsah je flex-column
+      return { left: left.scrollHeight, right: right.scrollHeight };
+    }
+
+    function attachRevealToCards(cards) {
+      // napojit do observeru až po přesunu do DOMu
+      requestAnimationFrame(() => {
+        cards.forEach(card => observer.observe(card));
+
+        // fallback: Safari někdy IO neodpálí hned – když je karta ve viewportu, ukaž ji
+        cards.forEach(card => {
+          const r = card.getBoundingClientRect();
+          if (r.top < window.innerHeight * 0.92) card.classList.add('is-visible');
         });
+      });
+    }
 
-        /* Reveal */
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) entry.target.classList.add('is-visible');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+    function distributeProjects() {
+      const left = document.getElementById('col-left');
+      const right = document.getElementById('col-right');
+      if (!left || !right || projectCards.length === 0) return;
 
-        /* Preloader */
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 1800);
-        });
+      // mobile: všechno do jednoho sloupce
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      left.innerHTML = '';
+      right.innerHTML = '';
 
-        /* MODAL */
-        const modal = document.getElementById('modal-overlay');
-        const modalContent = document.getElementById('modal-content');
+      if (isMobile) {
+        projectCards.forEach(card => left.appendChild(card));
+        attachRevealToCards(projectCards);
+        return;
+      }
 
-        function openProject(index) {
-            const p = projects[index];
-            const galleryHTML = p.gallery.map(img => `<img src="${img}" alt="${p.title}" style="width:100%; border-radius:12px; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.05);" loading="lazy">`).join('');
+      // desktop: greedy balance podle aktuální výšky sloupců
+      projectCards.forEach(card => {
+        const h = getColumnHeights(left, right);
+        (h.left <= h.right ? left : right).appendChild(card);
+      });
 
-            modalContent.innerHTML = `
-                <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; text-transform:lowercase; margin-bottom: 20px; display: block; font-weight:600;">${p.label}</span>
-                <h1 style="font-size: 3rem; font-weight: 600; letter-spacing: -1.5px; margin-bottom: 20px;">${p.title}</h1>
-                <p style="font-size: 1.1rem; color: #444; margin-bottom: 50px; max-width: 600px; line-height:1.7;">${p.desc}</p>
-                <div>${galleryHTML}</div>
-            `;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+      attachRevealToCards(projectCards);
+    }
 
-        function openAbout() {
-            modalContent.innerHTML = aboutContent;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    function rebalanceAfterImages() {
+      // Po každém do-loadu obrázku to zkus znovu (vyrovná se to postupně)
+      const imgs = document.querySelectorAll('#col-left img, #col-right img, #projects-pool img');
+      imgs.forEach(img => {
+        if (img.dataset._rebalanceBound) return;
+        img.dataset._rebalanceBound = "1";
 
-        function openArchive(element) {
-            if (wasDragged) return;
-            const img = element.querySelector('img');
-            modalContent.innerHTML = `
-                <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; text-transform:lowercase; margin-bottom: 20px; display: block; font-weight:600;">archiv</span>
-                <img src="${img.src}" style="width:100%; border-radius:12px;">
-            `;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        if (img.complete) return;
+        img.addEventListener('load', () => requestAnimationFrame(distributeProjects), { once: true });
+        img.addEventListener('error', () => requestAnimationFrame(distributeProjects), { once: true });
+      });
+    }
 
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+    window.addEventListener('DOMContentLoaded', () => {
+      // ulož si reference na karty (jinak pool po přesunu zůstane prázdný)
+      projectCards = Array.from(document.querySelectorAll('#projects-pool .project-card'));
+    });
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
+    window.addEventListener('load', () => {
+      distributeProjects();
+      rebalanceAfterImages();
+    });
 
-        /* Contact modal */
-        const contactModal = document.getElementById('contact-modal-overlay');
-
-        function openContact() {
-            contactModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeContact() {
-            contactModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        contactModal.addEventListener('click', (e) => {
-            if (e.target === contactModal) closeContact();
-        });
-
-        /* Formspree submit */
-        const popupForm = document.getElementById("popup-contact-form");
-        const popupStatus = document.getElementById("popup-form-status");
-        const popupSubmitBtn = document.getElementById("popup-submit-btn");
-
-        if(popupForm) {
-            popupForm.addEventListener("submit", async function(event) {
-                event.preventDefault();
-
-                const originalBtnText = popupSubmitBtn.innerText;
-                popupSubmitBtn.innerText = "odesílám...";
-                popupSubmitBtn.disabled = true;
-
-                const data = new FormData(event.target);
-
-                try {
-                    const response = await fetch(event.target.action, {
-                        method: popupForm.method,
-                        body: data,
-                        headers: { 'Accept': 'application/json' }
-                    });
-
-                    if (response.ok) {
-                        popupForm.style.display = "none";
-                        popupStatus.style.display = "block";
-                        popupForm.reset();
-                    } else {
-                        const jsonData = await response.json();
-                        alert("Chyba: " + (jsonData.errors ? jsonData.errors.map(e => e.message).join(", ") : "Něco se pokazilo."));
-                        popupSubmitBtn.innerText = originalBtnText;
-                        popupSubmitBtn.disabled = false;
-                    }
-                } catch (error) {
-                    alert("Oups! Problém s připojením.");
-                    popupSubmitBtn.innerText = originalBtnText;
-                    popupSubmitBtn.disabled = false;
-                }
-            });
-        }
-
-        /* Slider drag */
-        const slider = document.getElementById('slider');
-        let isDown = false; let startX; let scrollLeft; let wasDragged = false;
-
-        if (slider) {
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true; wasDragged = false; slider.style.cursor = 'grabbing';
-                startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-            });
-            slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
-            slider.addEventListener('mousemove', (e) => {
-                if(!isDown) return; e.preventDefault(); wasDragged = true;
-                const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk;
-            });
-        }
-
-        /* ✅ TRUE BALANCED MASONRY (2 columns) */
-        function distributeProjects() {
-            const pool = document.getElementById('projects-pool');
-            const left = document.getElementById('col-left');
-            const right = document.getElementById('col-right');
-            if (!pool || !left || !right) return;
-
-            const cards = Array.from(pool.querySelectorAll('.project-card'));
-
-            left.innerHTML = '';
-            right.innerHTML = '';
-
-            for (const card of cards) {
-                const leftH = left.offsetHeight;
-                const rightH = right.offsetHeight;
-                (leftH <= rightH ? left : right).appendChild(card);
-            }
-        }
-
-        window.addEventListener('load', () => {
-            distributeProjects();
-
-            // Rebalance po načtení obrázků (kvůli lazy-load)
-            const imgs = document.querySelectorAll('#projects-pool img, #col-left img, #col-right img');
-            imgs.forEach(img => {
-                if (img.complete) return;
-                img.addEventListener('load', distributeProjects, { once: true });
-                img.addEventListener('error', distributeProjects, { once: true });
-            });
-        });
-
-        // Rebalance při resize (debounce)
-        let resizeT;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeT);
-            resizeT = setTimeout(distributeProjects, 120);
-        });
-    </script>
+    // Resize debounce
+    let resizeT;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeT);
+      resizeT = setTimeout(() => {
+        distributeProjects();
+        rebalanceAfterImages();
+      }, 120);
+    });
+  </script>
 </body>
 </html>
