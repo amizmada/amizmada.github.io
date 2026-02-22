@@ -97,6 +97,23 @@
     }
     .animated-link:hover::after{ transform:scaleX(1); transform-origin:bottom left; }
 
+    /* --- TEXT LINK (EFEKT FIXU) --- */
+    .text-link {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 600;
+      background-image: linear-gradient(var(--accent), var(--accent));
+      background-size: 100% 30%;
+      background-repeat: no-repeat;
+      background-position: 0 90%;
+      transition: background-size 0.25s ease-in-out;
+      padding: 0 2px;
+    }
+    .text-link:hover {
+      background-size: 100% 100%;
+      cursor: pointer;
+    }
+
     /* --- HERO --- */
     header{
       height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
@@ -382,12 +399,10 @@
     <p class="hero-desc">tvořím čisté vizuální identity a funkční grafiku</p>
   </header>
 
-  <!-- PROJECTS: 2 sloupce + pool (JS to vybalancuje) -->
   <div class="projects-wrap" id="work">
     <div class="projects-col" id="col-left"></div>
     <div class="projects-col" id="col-right"></div>
 
-    <!-- Pool je schovaný, ale karty se po loadu přesunou do sloupců -->
     <div id="projects-pool" style="display:none;">
       <div class="project-card reveal-up" onclick="openProject(0)">
         <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy"></div>
@@ -456,7 +471,7 @@
         <div class="card-img-wrap"><img src="assets/tablo_vogue/tablo_vogue.webp" class="project-img" loading="lazy"></div>
         <div class="card-body">
           <span class="card-label">layout and edit</span>
-          <h2 class="card-title">maturitní tablo vogue</h2>
+          <h2 class="card-title">maturitní tablo</h2>
           <div class="liquid-btn">detail projektu</div>
         </div>
       </div>
@@ -465,7 +480,7 @@
         <div class="card-img-wrap"><img src="assets/tablo_netflix/tablo_netflix.webp" class="project-img" loading="lazy"></div>
         <div class="card-body">
           <span class="card-label">layout and edit</span>
-          <h2 class="card-title">maturitní tablo netflix</h2>
+          <h2 class="card-title">maturitní tablo</h2>
           <div class="liquid-btn">detail projektu</div>
         </div>
       </div>
@@ -534,15 +549,15 @@
 
   <script>
     const projects = [
-      { title: "U LUDVÍČKA", label: "webdesign / digital", desc: "web na <a href='https://www.uludvicka.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>uludvicka.cz</a>", gallery: ["assets/uludvicka/uludvicka1.webp"] },
-      { title: "DOMIX", label: "webdesign / digital", desc: "web na <a href='https://www.domix.cz' target='_blank' class='animated-link' style='font-size:inherit; border:none; padding-bottom:0;'>domix.cz</a>", gallery: ["assets/domix/domix1.webp"] },
+      { title: "U LUDVÍČKA", label: "webdesign / digital", desc: "web na <a href='https://www.uludvicka.cz' target='_blank' class='text-link'>uludvicka.cz</a>", gallery: ["assets/uludvicka/uludvicka1.webp"] },
+      { title: "DOMIX", label: "webdesign / digital", desc: "web na <a href='https://www.domix.cz' target='_blank' class='text-link'>domix.cz</a>", gallery: ["assets/domix/domix1.webp"] },
       { title: "PIT STOP F1", label: "ui / digital", desc: "strategický simulátor formule 1. design uživatelského rozhraní a herních mechanik.", gallery: ["assets/pitstop/pitstop.webp","assets/pitstop/pitstop1.webp","assets/pitstop/pitstop2.webp","assets/pitstop/pitstop3.webp","assets/pitstop/pitstop4.webp","assets/pitstop/pitstop5.webp"] },
       { title: "maturitní ples", label: "event identity / print", desc: "vizuální identita maturitního plesu. výrazná typografie a zlaté akcenty.", gallery: ["assets/maturitni_ples/maturitni_ples.webp","assets/maturitni_ples/maturitni_ples1.webp","assets/maturitni_ples/maturitni_ples2.webp","assets/maturitni_ples/maturitni_ples3.webp","assets/maturitni_ples/maturitni_ples4.webp","assets/maturitni_ples/maturitni_ples5.webp","assets/maturitni_ples/maturitni_ples6.webp"] },
       { title: "informační tabule", label: "layout / print", desc: "grafický návrh informační tabule pro židovský hřbitov.", gallery: ["assets/informacni_tabule/informacni_tabule.webp","assets/informacni_tabule/informacni_tabule1.webp","assets/informacni_tabule/informacni_tabule2.webp"] },
       { title: "GYMSOS NEWS", label: "editorial / print", desc: "školní časopis gymnázia. sazba, typografie a redakční design.", gallery: ["assets/gymsos_news/gymsos_news.webp","assets/gymsos_news/gymsos_news1.webp","assets/gymsos_news/gymsos_news2.webp","assets/gymsos_news/gymsos_news3.webp","assets/gymsos_news/gymsos_news4.webp","assets/gymsos_news/gymsos_news5.webp"] },
-      { title: "maturitní tablo", label: "layout & edit / print", desc: "kreativní pojetí tabla ve stylu módního magazínu. studiová fotografie.", gallery: ["assets/tablo_figurky/tablo_figurky.webp"] },
-      { title: "maturitní tablo vogue", label: "layout and edit / print", desc: "maturitní tablo inspirované modním magazínem.", gallery: ["assets/tablo_vogue/tablo_vogue.webp"] },
-      { title: "maturitní tablo netflix", label: "layout and edit / print", desc: "maturitní tablo inspirované streamovací platformou.", gallery: ["assets/tablo_netflix/tablo_netflix.webp"] }
+      { title: "maturitní tablo", label: "layout & edit / print", desc: "kreativní pojetí tabla ve stylu plastových figurek", gallery: ["assets/tablo_figurky/tablo_figurky.webp"] },
+      { title: "maturitní tablo", label: "layout and edit / print", desc: "maturitní tablo inspirované modním magazínem.", gallery: ["assets/tablo_vogue/tablo_vogue.webp"] },
+      { title: "maturitní tablo", label: "layout and edit / print", desc: "maturitní tablo inspirované streamovací platformou.", gallery: ["assets/tablo_netflix/tablo_netflix.webp"] }
     ];
 
     const aboutContent = `
@@ -738,16 +753,13 @@
     let projectCards = [];
 
     function getColumnHeights(left, right) {
-      // používáme scrollHeight, protože obsah je flex-column
       return { left: left.scrollHeight, right: right.scrollHeight };
     }
 
     function attachRevealToCards(cards) {
-      // napojit do observeru až po přesunu do DOMu
       requestAnimationFrame(() => {
         cards.forEach(card => observer.observe(card));
 
-        // fallback: Safari někdy IO neodpálí hned – když je karta ve viewportu, ukaž ji
         cards.forEach(card => {
           const r = card.getBoundingClientRect();
           if (r.top < window.innerHeight * 0.92) card.classList.add('is-visible');
@@ -760,7 +772,6 @@
       const right = document.getElementById('col-right');
       if (!left || !right || projectCards.length === 0) return;
 
-      // mobile: všechno do jednoho sloupce
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       left.innerHTML = '';
       right.innerHTML = '';
@@ -771,7 +782,6 @@
         return;
       }
 
-      // desktop: greedy balance podle aktuální výšky sloupců
       projectCards.forEach(card => {
         const h = getColumnHeights(left, right);
         (h.left <= h.right ? left : right).appendChild(card);
@@ -781,7 +791,6 @@
     }
 
     function rebalanceAfterImages() {
-      // Po každém do-loadu obrázku to zkus znovu (vyrovná se to postupně)
       const imgs = document.querySelectorAll('#col-left img, #col-right img, #projects-pool img');
       imgs.forEach(img => {
         if (img.dataset._rebalanceBound) return;
@@ -794,7 +803,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // ulož si reference na karty (jinak pool po přesunu zůstane prázdný)
       projectCards = Array.from(document.querySelectorAll('#projects-pool .project-card'));
     });
 
@@ -803,7 +811,6 @@
       rebalanceAfterImages();
     });
 
-    // Resize debounce
     let resizeT;
     window.addEventListener('resize', () => {
       clearTimeout(resizeT);
