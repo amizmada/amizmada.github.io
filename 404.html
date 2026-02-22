@@ -20,6 +20,8 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        ::selection { background-color: var(--accent); color: #000; }
+
         body {
             font-family: "Inter", -apple-system, sans-serif;
             background-color: var(--bg-color);
@@ -31,33 +33,15 @@
             align-items: center;
             text-align: center;
             overflow: hidden;
-            position: relative;
-        }
-
-        /* --- POZADÍ (OPRAVENÉ CENTROVÁNÍ) --- */
-        #soft-glow {
-            position: fixed; 
-            top: 45%; /* Optický střed (vypadá lépe než 50%) */
-            left: 50%; 
-            width: 1000px; /* Větší plocha, aby se neořezával blur */
-            height: 1000px;
-            /* Explicitně říkáme "circle at center" */
-            background: radial-gradient(circle at center, rgba(207, 255, 0, 0.35) 0%, rgba(255, 255, 255, 0) 65%);
-            z-index: -1; 
-            pointer-events: none;
-            filter: blur(120px); 
-            /* Translate zajišťuje přesné matematické vystředění prvku */
-            transform: translate(-50%, -50%);
-            animation: pulseGlow 5s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            -webkit-font-smoothing: antialiased;
+            /* Nové čisté pozadí ze sjednoceného stylu */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(207, 255, 0, 0.04) 0px, transparent 40%),
+                radial-gradient(at 100% 100%, rgba(207, 255, 0, 0.04) 0px, transparent 40%);
         }
 
         h1 {
-            font-size: 8rem;
+            font-size: clamp(6rem, 15vw, 10rem);
             font-weight: 600;
             letter-spacing: -4px;
             line-height: 1;
@@ -66,7 +50,7 @@
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             font-weight: 500;
             margin-bottom: 15px;
             letter-spacing: -0.5px;
@@ -76,35 +60,21 @@
             color: var(--text-muted);
             margin-bottom: 40px;
             font-weight: 400;
+            font-size: 1.1rem;
         }
 
-        /* --- TLAČÍTKO --- */
+        /* --- NOVÉ TLAČÍTKO --- */
         .liquid-btn {
-            display: inline-block; padding: 12px 30px; font-size: 0.9rem; font-weight: 500; 
-            color: var(--text-main); text-decoration: none;
-            border-radius: 100px; background: rgba(255, 255, 255, 0.6); 
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
-            transition: all 0.4s ease; position: relative; overflow: hidden; cursor: pointer;
+            display: inline-flex; justify-content: center; align-items: center;
+            padding: 14px 32px; font-size: 0.9rem; font-weight: 500; color: #000; 
+            border-radius: 100px; background: var(--accent); border: none; cursor: pointer; 
+            transition: transform 0.3s ease, filter 0.3s ease; text-decoration: none;
         }
-        .liquid-btn:hover { border-color: rgba(0, 0, 0, 0.2); transform: translateY(-2px); }
-        .liquid-btn::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--accent); opacity: 0; z-index: -1; 
-            transition: opacity 0.4s ease; filter: blur(15px);
-        }
-        .liquid-btn:hover::before { opacity: 0.4; }
+        .liquid-btn:hover { filter: brightness(0.95); transform: scale(1.02); }
 
-        /* Mobilní úpravy */
-        @media (max-width: 768px) {
-            h1 { font-size: 5rem; letter-spacing: -2px; }
-            #soft-glow { width: 500px; height: 500px; filter: blur(80px); }
-        }
     </style>
 </head>
 <body>
-
-    <div id="soft-glow"></div>
 
     <h1>404</h1>
     <h2>stránka nenalezena</h2>
