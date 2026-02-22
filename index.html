@@ -8,15 +8,16 @@
     gtag('js', new Date());
     gtag('config', 'G-T9J5Z45NLJ');
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
+
     <title>adam zima</title>
 
     <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="192x192">
     <link rel="icon" type="image/png" href="https://www.adamzima.cz/assets/favicon.png" sizes="32x32">
     <link rel="apple-touch-icon" href="https://www.adamzima.cz/assets/apple-icon.png">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@1,900&display=swap" rel="stylesheet">
@@ -48,7 +49,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(207, 255, 0, 0.04) 0px, transparent 40%),
                 radial-gradient(at 100% 100%, rgba(207, 255, 0, 0.04) 0px, transparent 40%);
         }
@@ -61,8 +62,8 @@
             transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1);
         }
         .loader-mask { overflow: hidden; display: inline-block; padding: 10px; }
-        .loader-text { 
-            display: inline-block; font-weight: 600; font-size: 1.4rem; letter-spacing: -1px; 
+        .loader-text {
+            display: inline-block; font-weight: 600; font-size: 1.4rem; letter-spacing: -1px;
             transform: translateY(100%);
             animation: slideUpLoader 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s, pulseText 1.5s infinite ease-in-out 1.2s;
         }
@@ -85,9 +86,9 @@
             z-index: 1000;
         }
         .logo { font-weight: 600; font-size: 0.95rem; color: #000; letter-spacing: -0.5px; cursor: pointer; }
-        
+
         .nav-links { display: flex; gap: 30px; align-items: center; }
-        
+
         .animated-link {
             position: relative; font-size: 0.85rem; color: var(--text-main); text-decoration: none; font-weight: 500; cursor: pointer; padding-bottom: 2px;
             display: inline-block;
@@ -109,48 +110,102 @@
         }
         .hero-desc { font-size: 1.2rem; color: var(--text-muted); max-width: 550px; font-weight: 400; line-height: 1.6; }
 
-        /* --- MASONRY GRID --- */
-        .projects-masonry {
-            column-count: 2; column-gap: 40px; max-width: var(--max-width); margin: 0 auto; padding: 0 50px 100px 50px;
+        /* --- PROJECTS: 2 FLEX SLOUPCE + JS BALANCE (spolehlivé) --- */
+        .projects-wrap{
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 50px 100px 50px;
+
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
         }
-        
-        .project-card {
-            display: inline-block; width: 100%; margin-bottom: 60px;
-            background: transparent; border: none; cursor: pointer;
-            break-inside: avoid;
-            -webkit-column-break-inside: avoid;
-            page-break-inside: avoid;
+
+        .projects-col{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        /* KARTA */
+        .project-card{
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+
+            position: relative;
+            z-index: 1;
+
+            /* anti-flicker vrstvy */
             transform: translateZ(0);
+            -webkit-transform: translateZ(0);
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             will-change: transform;
+
+            /* izolace repaintu */
+            contain: paint;
         }
-        
-        .card-img-wrap { 
-            width: 100%; border-radius: var(--card-radius); overflow: hidden; background: #f9f9fb; 
-            -webkit-mask-image: -webkit-radial-gradient(white, black);
-            mask-image: radial-gradient(white, black);
-            transform: translateZ(0); 
-            backface-visibility: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+        .card-img-wrap{
+            width: 100%;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background: #f9f9fb;
+
+            position: relative;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            will-change: transform;
+            transition: transform 0.4s ease;
         }
-        
-        .project-img { 
-            width: 100%; height: auto; display: block; 
-            transform: translateZ(0); 
-            transition: transform 0.5s ease; 
+
+        /* shadow přes pseudo-element (Safari stabilnější než box-shadow transition) */
+        .card-img-wrap::after{
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
-        
+
+        .project-img{
+            width: 100%;
+            height: auto;
+            display: block;
+
+            transform: translate3d(0,0,0) scale(1);
+            -webkit-transform: translate3d(0,0,0) scale(1);
+            will-change: transform;
+            transition: transform 0.5s ease;
+        }
+
         .card-body { padding: 25px 10px 0 10px; }
         .card-label { font-size: 0.75rem; color: #999; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 8px; display: block; text-transform: lowercase; }
         .card-title { font-size: 1.8rem; font-weight: 600; letter-spacing: -1px; margin-bottom: 15px; color: #1d1d1f; }
-        
-        .project-card:hover .card-img-wrap { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0,0,0,0.06); }
-        .project-card:hover .project-img { transform: scale(1.02); }
 
+        .project-card:hover .card-img-wrap{
+            transform: translate3d(0,-6px,0);
+            -webkit-transform: translate3d(0,-6px,0);
+        }
+        .project-card:hover .card-img-wrap::after{ opacity: 1; }
+        .project-card:hover .project-img{
+            transform: translate3d(0,0,0) scale(1.02);
+            -webkit-transform: translate3d(0,0,0) scale(1.02);
+        }
+
+        /* TLAČÍTKA */
         .liquid-btn {
             display: inline-flex; justify-content: center; align-items: center;
-            padding: 14px 32px; font-size: 0.9rem; font-weight: 500; color: #000; 
-            border-radius: 100px; background: var(--accent); border: none; cursor: pointer; transition: transform 0.3s ease, filter 0.3s ease; text-decoration: none;
+            padding: 14px 32px; font-size: 0.9rem; font-weight: 500; color: #000;
+            border-radius: 100px; background: var(--accent); border: none; cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease; text-decoration: none;
         }
         .liquid-btn:hover { filter: brightness(0.95); transform: scale(1.02); }
 
@@ -163,19 +218,30 @@
 
         .archive-slider { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scrollbar-width: none; cursor: grab; align-items: flex-start; }
         .archive-slider::-webkit-scrollbar { display: none; }
-        .archive-item { 
-            height: 400px; flex-shrink: 0; background: #f0f0f0; cursor: pointer; border-radius: 12px; overflow: hidden; 
-            transform: translateZ(0); 
-            transition: transform 0.4s ease; 
+
+        .archive-item{
+            height: 400px;
+            flex-shrink: 0;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+
+            position: relative;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
+            will-change: transform;
+            transition: transform 0.4s ease;
+            contain: paint;
         }
-        .archive-item img { height: 100%; width: auto; display: block; opacity: 0.9; pointer-events: none; transition: 0.4s ease; }
-        .archive-item:hover { transform: translateY(-4px); }
-        .archive-item:hover img { opacity: 1; transform: scale(1.01); }
+        .archive-item img { height: 100%; width: auto; display: block; opacity: 0.9; pointer-events: none; transition: 0.4s ease; transform: scale(1) translateZ(0); }
+        .archive-item:hover { transform: translate3d(0,-4px,0); -webkit-transform: translate3d(0,-4px,0); }
+        .archive-item:hover img { opacity: 1; transform: scale(1.01) translateZ(0); }
 
         /* --- KONTAKT --- */
         .contact-section { max-width: var(--max-width); margin: 0 auto; padding: 100px 50px; border-top: 1px solid #eee; text-align: center; }
-        .contact-link-large { 
-            position: relative; font-size: 3.5rem; font-weight: 600; letter-spacing: -1.5px; color: var(--text-main); 
+        .contact-link-large {
+            position: relative; font-size: 3.5rem; font-weight: 600; letter-spacing: -1.5px; color: var(--text-main);
             text-decoration: none; display: inline-block; margin-top: 10px; cursor: pointer; padding-bottom: 5px;
         }
         .contact-link-large::after {
@@ -192,8 +258,10 @@
             padding: 10px 25px; border-radius: 100px; z-index: 999;
             display: flex; align-items: center; gap: 20px; font-size: 0.85rem; color: var(--text-main); white-space: nowrap;
         }
+
         .dock-item { color: var(--text-main); text-decoration: none; font-weight: 500; transition: all 0.2s ease; padding: 8px 16px; border-radius: 50px; }
         .dock-item:hover { background-color: var(--accent); color: #000; }
+
         .dock-copy { color: var(--text-muted); font-weight: 500; font-size: 0.8rem; padding-left: 10px; }
         .dock-divider { width: 1px; height: 15px; background: rgba(0,0,0,0.1); margin: 0 5px; }
 
@@ -210,40 +278,34 @@
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-container { max-width: 900px; margin: 80px auto; padding: 0 20px 80px 20px; }
-        
-        /* Nové zarovnání tlačítka Zavřít (přesně na pozici navigace) */
+
         .close-modal {
-            position: fixed; top: 0; right: 50px; height: 80px; 
+            position: fixed; top: 0; right: 50px; height: 80px;
             border: none; cursor: pointer; background: transparent;
             font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--text-main); z-index: 2001;
             display: flex; align-items: center;
         }
-        .close-modal span {
-            position: relative; padding-bottom: 2px;
-        }
+        .close-modal span { position: relative; padding-bottom: 2px; }
         .close-modal span::after {
             content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0;
             background-color: var(--accent); transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out;
         }
         .close-modal:hover span::after { transform: scaleX(1); transform-origin: bottom left; }
 
-        /* Modal o mně */
         .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
-        .about-photo { width: 100%; aspect-ratio: 3/4; background: #ddd; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); transition: transform 0.4s ease; }
-        .about-photo:hover { transform: translateY(-5px); }
+        .about-photo { width: 100%; aspect-ratio: 3/4; background: #ddd; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); position: relative; top: 0; transition: top 0.4s ease; }
+        .about-photo:hover { top: -5px; }
 
         .about-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600; letter-spacing: -2px; margin-bottom: 20px; color: var(--text-main); line-height: 1.1; }
         .about-desc { font-size: 1.1rem; color: #555; line-height: 1.7; margin-bottom: 40px; max-width: 600px; }
 
-        /* Služby v modalu */
         .services-list { margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.06); }
-        .services-list h4 { font-size: 0.75rem; color: #999; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; }
+        .services-list h4 { font-size: 0.75rem; color:#999; letter-spacing:1.5px; font-weight:600; margin-bottom:20px; text-transform:uppercase; }
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .service-item { font-size: 1.05rem; font-weight: 400; color: #333; display: flex; align-items: center; gap: 12px; transition: color 0.3s ease; }
         .service-item:hover { color: #000; }
         .service-item::before { content: ''; display: block; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
 
-        /* Formulář v modalu */
         .contact-form { max-width: 500px; margin: 0; text-align: left; display: flex; flex-direction: column; gap: 20px; }
         .form-group { width: 100%; }
         .form-input { width: 100%; padding: 18px 20px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-family: "Inter", sans-serif; font-size: 1rem; color: var(--text-main); transition: all 0.3s ease; outline: none; resize: none; }
@@ -253,7 +315,13 @@
         @media (max-width: 768px) {
             nav, header { padding: 0 20px; }
             .hero-title { font-size: 2.8rem; }
-            .projects-masonry { column-count: 1; padding: 0 20px 80px 20px; }
+
+            .projects-wrap{
+                padding: 0 20px 80px 20px;
+                flex-direction: column;
+                gap: 60px;
+            }
+
             .archive-wrapper { padding: 0 20px; }
             .archive-item { height: 250px; }
             .contact-link-large { font-size: 2.2rem; }
@@ -263,8 +331,6 @@
             .about-grid { grid-template-columns: 1fr; gap: 30px; }
             .about-photo { aspect-ratio: 4/3; }
             .services-grid { grid-template-columns: 1fr; }
-            
-            /* Tlačítko zavřít reaguje na mobilní odsazení navigace */
             .close-modal { right: 20px; }
         }
     </style>
@@ -290,89 +356,94 @@
         <p class="hero-desc">tvořím čisté vizuální identity a funkční grafiku</p>
     </header>
 
-    <div class="projects-masonry" id="work">
-        
-        <div class="project-card reveal-up" onclick="openProject(0)">
-            <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">webdesign / digital</span>
-                <h2 class="card-title">U LUDVÍČKA</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
+    <!-- PROJECTS: 2 sloupce + pool (JS to vybalancuje) -->
+    <div class="projects-wrap" id="work">
+        <div class="projects-col" id="col-left"></div>
+        <div class="projects-col" id="col-right"></div>
 
-        <div class="project-card reveal-up" onclick="openProject(1)">
-            <div class="card-img-wrap"><img src="assets/domix/domix.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">webdesign / digital</span>
-                <h2 class="card-title">DOMIX</h2>
-                <div class="liquid-btn">detail projektu</div>
+        <!-- původní karty jsou tady (skryté) a JS je přesune do sloupců -->
+        <div id="projects-pool" style="display:none;">
+            <div class="project-card reveal-up" onclick="openProject(0)">
+                <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">webdesign / digital</span>
+                    <h2 class="card-title">U LUDVÍČKA</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
             </div>
-        </div>
 
-        <div class="project-card reveal-up" onclick="openProject(2)">
-            <div class="card-img-wrap"><img src="assets/pitstop/mac.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">ui / digital</span>
-                <h2 class="card-title">PIT STOP F1</h2>
-                <div class="liquid-btn">detail projektu</div>
+            <div class="project-card reveal-up" onclick="openProject(1)">
+                <div class="card-img-wrap"><img src="assets/domix/domix.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">webdesign / digital</span>
+                    <h2 class="card-title">DOMIX</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
             </div>
-        </div>
-        
-        <div class="project-card reveal-up" onclick="openProject(3)">
-            <div class="card-img-wrap"><img src="assets/maturitni_ples/maturitni_ples.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">event identity / print</span>
-                <h2 class="card-title">maturitní ples</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
 
-        <div class="project-card reveal-up" onclick="openProject(4)">
-            <div class="card-img-wrap"><img src="assets/informacni_tabule/informacni_tabule.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">layout / print</span>
-                <h2 class="card-title">informační tabule</h2>
-                <div class="liquid-btn">detail projektu</div>
+            <div class="project-card reveal-up" onclick="openProject(2)">
+                <div class="card-img-wrap"><img src="assets/pitstop/mac.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">ui / digital</span>
+                    <h2 class="card-title">PIT STOP F1</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(3)">
+                <div class="card-img-wrap"><img src="assets/maturitni_ples/maturitni_ples.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">event identity / print</span>
+                    <h2 class="card-title">maturitní ples</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(4)">
+                <div class="card-img-wrap"><img src="assets/informacni_tabule/informacni_tabule.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">layout / print</span>
+                    <h2 class="card-title">informační tabule</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(5)">
+                <div class="card-img-wrap"><img src="assets/gymsos_news/gymsos_news.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">editorial / print</span>
+                    <h2 class="card-title">GYMSOS NEWS</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(6)">
+                <div class="card-img-wrap"><img src="assets/tablo_figurky/tablo_figurky.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">layout & edit</span>
+                    <h2 class="card-title">maturitní tablo</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(7)">
+                <div class="card-img-wrap"><img src="assets/tablo_vogue/tablo_vogue.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">layout and edit</span>
+                    <h2 class="card-title">maturitní tablo vogue</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
+            </div>
+
+            <div class="project-card reveal-up" onclick="openProject(8)">
+                <div class="card-img-wrap"><img src="assets/tablo_netflix/tablo_netflix.webp" class="project-img" loading="lazy"></div>
+                <div class="card-body">
+                    <span class="card-label">layout and edit</span>
+                    <h2 class="card-title">maturitní tablo netflix</h2>
+                    <div class="liquid-btn">detail projektu</div>
+                </div>
             </div>
         </div>
-
-        <div class="project-card reveal-up" onclick="openProject(5)">
-            <div class="card-img-wrap"><img src="assets/gymsos_news/gymsos_news.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">editorial / print</span>
-                <h2 class="card-title">GYMSOS NEWS</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
-
-        <div class="project-card reveal-up" onclick="openProject(6)">
-            <div class="card-img-wrap"><img src="assets/tablo_figurky/tablo_figurky.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">layout & edit</span>
-                <h2 class="card-title">maturitní tablo</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
-
-        <div class="project-card reveal-up" onclick="openProject(7)">
-            <div class="card-img-wrap"><img src="assets/tablo_vogue/tablo_vogue.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">layout and edit</span>
-                <h2 class="card-title">maturitní tablo vogue</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
-
-        <div class="project-card reveal-up" onclick="openProject(8)">
-            <div class="card-img-wrap"><img src="assets/tablo_netflix/tablo_netflix.webp" class="project-img" loading="lazy"></div>
-            <div class="card-body">
-                <span class="card-label">layout and edit</span>
-                <h2 class="card-title">maturitní tablo netflix</h2>
-                <div class="liquid-btn">detail projektu</div>
-            </div>
-        </div>
-
     </div>
 
     <section class="archive-section reveal-up">
@@ -401,7 +472,7 @@
         <a href="https://github.com/amizmada" class="dock-item" target="_blank">github</a>
         <a href="mailto:adam@adamzima.com" class="dock-item">email</a>
         <div class="dock-divider"></div>
-        
+
         <a href="https://zetdesign.cz" target="_blank" class="svg-logo" aria-label="zet_design">
             <img src="assets/zet.svg" alt="zet_design" class="zet-icon">
         </a>
@@ -418,7 +489,7 @@
             <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; margin-bottom: 30px; display: block; text-transform:uppercase; font-weight:600;">kontakt</span>
             <h1 style="font-size: 2.2rem; font-weight: 600; letter-spacing: -1px; line-height: 1.3;">napište mi.</h1>
             <p style="font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 50px;">máte nápad na projekt nebo se chcete jen zeptat?</p>
-            
+
             <form id="popup-contact-form" action="https://formspree.io/f/xeeejrlr" method="POST" class="contact-form">
                 <div class="form-group">
                     <input type="email" name="email" placeholder="váš email" required class="form-input">
@@ -461,7 +532,7 @@
                         <br><br>
                         věřím, že design není jen o tom, jak věci vypadají, ale především jak fungují.
                     </p>
-                    
+
                     <div class="services-list">
                         <h4>co dělám</h4>
                         <div class="services-grid">
@@ -480,34 +551,36 @@
             </div>
         `;
 
+        /* Hero parallax */
         window.addEventListener('scroll', () => {
             const title = document.getElementById('heroTitle');
             title.style.transform = `translateY(${window.scrollY * 0.15}px)`;
             title.style.opacity = 1 - (window.scrollY / 500);
         });
 
+        /* Reveal */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
+                if(entry.isIntersecting) entry.target.classList.add('is-visible');
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
 
+        /* Preloader */
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
-            }, 1800); 
+            }, 1800);
         });
 
+        /* MODAL */
         const modal = document.getElementById('modal-overlay');
         const modalContent = document.getElementById('modal-content');
 
         function openProject(index) {
             const p = projects[index];
             const galleryHTML = p.gallery.map(img => `<img src="${img}" alt="${p.title}" style="width:100%; border-radius:12px; margin-bottom:30px; box-shadow:0 10px 30px rgba(0,0,0,0.05);" loading="lazy">`).join('');
-            
+
             modalContent.innerHTML = `
                 <span style="font-size: 0.8rem; color: #999; letter-spacing: 1.5px; text-transform:lowercase; margin-bottom: 20px; display: block; font-weight:600;">${p.label}</span>
                 <h1 style="font-size: 3rem; font-weight: 600; letter-spacing: -1.5px; margin-bottom: 20px;">${p.title}</h1>
@@ -544,8 +617,9 @@
             if (e.target === modal) closeModal();
         });
 
+        /* Contact modal */
         const contactModal = document.getElementById('contact-modal-overlay');
-        
+
         function openContact() {
             contactModal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -560,6 +634,7 @@
             if (e.target === contactModal) closeContact();
         });
 
+        /* Formspree submit */
         const popupForm = document.getElementById("popup-contact-form");
         const popupStatus = document.getElementById("popup-form-status");
         const popupSubmitBtn = document.getElementById("popup-submit-btn");
@@ -567,7 +642,7 @@
         if(popupForm) {
             popupForm.addEventListener("submit", async function(event) {
                 event.preventDefault();
-                
+
                 const originalBtnText = popupSubmitBtn.innerText;
                 popupSubmitBtn.innerText = "odesílám...";
                 popupSubmitBtn.disabled = true;
@@ -599,20 +674,60 @@
             });
         }
 
+        /* Slider drag */
         const slider = document.getElementById('slider');
         let isDown = false; let startX; let scrollLeft; let wasDragged = false;
-        
-        slider.addEventListener('mousedown', (e) => { 
-            isDown = true; wasDragged = false; slider.style.cursor = 'grabbing'; 
-            startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; 
-        });
-        slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
-        slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
-        slider.addEventListener('mousemove', (e) => { 
-            if(!isDown) return; e.preventDefault(); wasDragged = true;
-            const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk; 
+
+        if (slider) {
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true; wasDragged = false; slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+            slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+            slider.addEventListener('mousemove', (e) => {
+                if(!isDown) return; e.preventDefault(); wasDragged = true;
+                const x = e.pageX - slider.offsetLeft; const walk = (x - startX) * 2; slider.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        /* ✅ TRUE BALANCED MASONRY (2 columns) */
+        function distributeProjects() {
+            const pool = document.getElementById('projects-pool');
+            const left = document.getElementById('col-left');
+            const right = document.getElementById('col-right');
+            if (!pool || !left || !right) return;
+
+            const cards = Array.from(pool.querySelectorAll('.project-card'));
+
+            left.innerHTML = '';
+            right.innerHTML = '';
+
+            for (const card of cards) {
+                const leftH = left.offsetHeight;
+                const rightH = right.offsetHeight;
+                (leftH <= rightH ? left : right).appendChild(card);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            distributeProjects();
+
+            // Rebalance po načtení obrázků (kvůli lazy-load)
+            const imgs = document.querySelectorAll('#projects-pool img, #col-left img, #col-right img');
+            imgs.forEach(img => {
+                if (img.complete) return;
+                img.addEventListener('load', distributeProjects, { once: true });
+                img.addEventListener('error', distributeProjects, { once: true });
+            });
         });
 
+        // Rebalance při resize (debounce)
+        let resizeT;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeT);
+            resizeT = setTimeout(distributeProjects, 120);
+        });
     </script>
 </body>
 </html>
