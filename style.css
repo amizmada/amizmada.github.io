@@ -123,7 +123,7 @@ header {
   width: 100%; 
   border-radius: 0; 
   overflow: hidden; 
-  background: #f9f9fb;
+  background: transparent;
   position: relative; 
   transform: translate3d(0,0,0); 
   will-change: transform; 
