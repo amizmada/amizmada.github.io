@@ -8,79 +8,29 @@
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Sjednocený font Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    
+    <!-- Absolutní cesta k CSS (pro případ, že 404 vyskočí v nějaké podsložce) -->
+    <link rel="stylesheet" href="/style.css">
 
-    <style>
-        :root {
-            --bg-color: #fbfbfd;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
-            --accent: #CFFF00;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        ::selection { background-color: var(--accent); color: #000; }
-
-        body {
-            font-family: "Inter", -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
-            /* Nové čisté pozadí ze sjednoceného stylu */
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(207, 255, 0, 0.04) 0px, transparent 40%),
-                radial-gradient(at 100% 100%, rgba(207, 255, 0, 0.04) 0px, transparent 40%);
-        }
-
-        h1 {
-            font-size: clamp(6rem, 15vw, 10rem);
-            font-weight: 600;
-            letter-spacing: -4px;
-            line-height: 1;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        h2 {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 500;
-            margin-bottom: 15px;
-            letter-spacing: -0.5px;
-        }
-
-        p {
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-weight: 400;
-            font-size: 1.1rem;
-        }
-
-        /* --- NOVÉ TLAČÍTKO --- */
-        .liquid-btn {
-            display: inline-flex; justify-content: center; align-items: center;
-            padding: 14px 32px; font-size: 0.9rem; font-weight: 500; color: #000; 
-            border-radius: 100px; background: var(--accent); border: none; cursor: pointer; 
-            transition: transform 0.3s ease, filter 0.3s ease; text-decoration: none;
-        }
-        .liquid-btn:hover { filter: brightness(0.95); transform: scale(1.02); }
-
-    </style>
 </head>
 <body>
 
-    <h1>404</h1>
-    <h2>stránka nenalezena</h2>
-    <p>tady nic není. jen prázdné plátno.</p>
-    
-    <a href="/" class="liquid-btn">zpět na domovskou stránku</a>
+    <!-- Zachovaná navigace pro snadný návrat -->
+    <nav>
+        <a href="/" class="logo" style="text-decoration: none;">adam zima</a>
+    </nav>
+
+    <!-- Vycentrovaný obsah -->
+    <div class="error-wrap reveal-up is-visible">
+        <h1 class="error-code">404</h1>
+        <h2 class="error-subtitle">stránka nenalezena</h2>
+        <p class="error-desc">tady nic není.</p>
+        
+        <a href="/" class="liquid-btn">zpět na domovskou stránku</a>
+    </div>
 
 </body>
 </html>
