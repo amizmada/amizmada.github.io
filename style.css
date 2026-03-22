@@ -161,7 +161,7 @@ nav {
   font-weight: 700;
   position: relative;
   z-index: 1;
-  padding-bottom: 2px; /* Drobná mezera, aby linka nebyla nalepená přímo na písmenech */
+  padding-bottom: 2px; 
 }
 
 .text-link::before {
@@ -170,15 +170,15 @@ nav {
   bottom: 0; 
   left: -2%; 
   width: 104%; 
-  height: 2px; /* Začíná jako normální, nenápadné tenké podtržení */
-  background-color: var(--accent); /* Standardní černá barva linky */
+  height: 2px; 
+  background-color: var(--text-main); 
   z-index: -1; 
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .text-link:hover::before { 
-  height: 45%; /* Plynule vyroste směrem nahoru za text */
-  background-color: var(--accent); /* Změní se na tvůj neonový zvýrazňovač */
+  height: 45%; 
+  background-color: var(--accent); 
 }
 
 /* --- HEADER / HERO --- */
@@ -387,7 +387,8 @@ header {
   width: 100%; 
   height: auto; 
   display: block; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+  background: transparent; /* Zajištění čistého pozadí */
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.06)); /* Chytrý stín obkreslující PNG */
   border-radius: 0; 
 }
 
@@ -423,8 +424,8 @@ header {
   content: ''; 
   position: absolute; 
   width: 104%; 
-  height: 35%; /* Výška zvýrazňovače */
-  bottom: 12%; /* Posunutí nahoru za text */
+  height: 35%; 
+  bottom: 12%; 
   left: -2%; 
   background-color: var(--accent); 
   transform: scaleX(0); 
@@ -536,7 +537,7 @@ header {
   padding: 0 20px 80px 20px; 
 }
 
-/* --- ZCELA NOVÝ "EDITORIAL" 50/50 LAYOUT FOTKY --- */
+/* --- 50/50 LAYOUT FOTKY --- */
 .modal-photo-view { 
   display: flex; 
   width: 100vw;
@@ -556,15 +557,22 @@ header {
 .photo-details-col-left {
   flex: 0 0 50%; 
   height: 100vh;
-  background: #f4f4f4; 
+  background: transparent; /* Zajištěna průhlednost i v modálu */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px; /* Vytvořen prostor, aby PNG mohlo krásně dýchat */
 }
 
 .modal-photo-img { 
-  width: 100%; 
-  height: 100%;
-  object-fit: cover; 
+  max-width: 100%; 
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Původní cover nahrazen za contain, aby se PNG neořízlo */
   border-radius: 0;
   box-shadow: none; 
+  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1)); /* Chytrý stín kolem hrany PNG i v detailu */
 }
 
 .photo-details-col-right {
@@ -903,6 +911,7 @@ header {
     flex: 0 0 50vh; 
     width: 100%; 
     height: 50vh; 
+    padding: 40px 20px; /* Aby nebylo PNG na mobilu natlačené na hranu */
   }
   
   .photo-details-col-right { 
