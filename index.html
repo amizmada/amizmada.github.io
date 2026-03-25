@@ -60,7 +60,7 @@
   </header>
 
   <div class="projects-wrap" id="work">
-     
+    
     <div class="project-card reveal-up" onclick="openProject(0)">
       <div class="card-img-wrap"><img src="assets/uludvicka/uludvicka.png" class="project-img" loading="lazy" alt="U Ludvíčka"></div>
       <div class="card-body">
@@ -342,6 +342,16 @@
         }
       });
     }
+
+    /* --- Oprava načítání fotek u projektů --- */
+    document.querySelectorAll('.project-img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('img-loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('img-loaded'));
+        img.addEventListener('error', () => img.classList.add('img-loaded')); // Zobrazí prostor i při chybě načtení
+      }
+    });
   </script>
 </body>
 </html>
