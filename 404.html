@@ -1,36 +1,67 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>stránka nenalezena | adam zima</title>
-    
-    <link rel="icon" type="image/png" href="/assets/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Sjednocený font Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    
-    <!-- Absolutní cesta k CSS (pro případ, že 404 vyskočí v nějaké podsložce) -->
-    <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stránka nenalezena | adam zima</title>
+  
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/style.css">
 
+  <style>
+    .error-wrap { 
+      height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      text-align: center; 
+      padding: 0 20px; 
+    }
+
+    .error-code { 
+      font-size: clamp(6rem, 15vw, 12rem); 
+      font-weight: 800; 
+      font-style: italic; 
+      line-height: 0.8; 
+      letter-spacing: -4px; 
+      color: var(--text-main); 
+      margin-bottom: 10px; 
+    }
+
+    .error-subtitle { 
+      font-size: clamp(1.5rem, 4vw, 2.5rem); 
+      font-weight: 700; 
+      letter-spacing: -1px; 
+      margin-bottom: 20px; 
+      color: var(--text-main); 
+    }
+
+    .error-desc { 
+      font-size: 1.1rem; 
+      color: var(--text-muted); 
+      margin-bottom: 40px; 
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Zachovaná navigace pro snadný návrat -->
-    <nav>
-        <a href="/" class="logo" style="text-decoration: none;">adam zima</a>
-    </nav>
+  <nav>
+    <a href="/" class="logo" style="text-decoration: none;">adam zima</a>
+  </nav>
 
-    <!-- Vycentrovaný obsah -->
-    <div class="error-wrap reveal-up is-visible">
-        <h1 class="error-code">404</h1>
-        <h2 class="error-subtitle">stránka nenalezena</h2>
-        <p class="error-desc">tady nic není.</p>
-        
-        <a href="/" class="liquid-btn">zpět na domovskou stránku</a>
-    </div>
+  <div class="error-wrap reveal-up is-visible">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-subtitle">stránka nenalezena.</h2>
+    <p class="error-desc">tady nic není.</p>
+    
+    <a href="/" class="liquid-btn">zpět na domovskou</a>
+  </div>
 
 </body>
 </html>
