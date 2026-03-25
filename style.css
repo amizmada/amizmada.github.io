@@ -1,9 +1,27 @@
 :root {
+  /* Výchozí denní režim (zářivá bílá) */
   --bg-color: #fcfcfc;
   --text-main: #111111;
   --text-muted: #888888;
   --accent: #CFFF00; /* Neonová žlutá */
-  --max-width: 1200px;
+  --max-width: 1200px; 
+  --border-color: rgba(0,0,0,0.1);
+  --nav-bg: rgba(252,252,252,0.85);
+  --input-bg: #fff;
+  --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* --- DARK MODE (Ztlumený "papírový" režim pro šetření očí) --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #e4e4e4; /* Tmavší, měkká bílá/šedá */
+    --text-main: #111111; /* Text zůstává tmavý */
+    --text-muted: #666666; /* Mírně ztmavená šedá pro lepší kontrast */
+    --border-color: rgba(0,0,0,0.15); 
+    --nav-bg: rgba(228,228,228,0.85); /* Odpovídající poloprůhledné pozadí navigace */
+    --input-bg: #ebebeb; 
+    --card-shadow: 0 20px 40px rgba(0,0,0,0.12); /* Nepatrně silnější stín pro zachování hloubky */
+  }
 }
 
 * { 
@@ -15,7 +33,7 @@
 
 ::selection { 
   background-color: var(--accent); 
-  color: #111; /* Černý text na neonovém pozadí */
+  color: #111;
 }
 
 ::-webkit-scrollbar { 
@@ -34,6 +52,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* --- PRELOADER --- */
@@ -104,18 +123,20 @@ nav {
   display: flex; 
   justify-content: space-between; 
   align-items: center;
-  background: rgba(252,252,252,0.85); 
+  background: var(--nav-bg); 
   backdrop-filter: blur(20px);
   z-index: 1000;
+  transition: background-color 0.4s ease;
 }
 
 .logo { 
   font-weight: 700; 
   font-size: 0.95rem; 
-  color: #111; 
+  color: var(--text-main); 
   letter-spacing: -0.5px; 
   cursor: pointer; 
   text-decoration: none; 
+  transition: color 0.3s ease;
 }
 
 .nav-links { 
@@ -124,7 +145,6 @@ nav {
   align-items: center; 
 }
 
-/* Neonové podtržení navigace */
 .animated-link {
   position: relative; 
   font-size: 0.85rem; 
@@ -134,6 +154,7 @@ nav {
   cursor: pointer; 
   padding-bottom: 2px; 
   display: inline-block;
+  transition: color 0.3s ease;
 }
 
 .animated-link::after {
@@ -154,7 +175,6 @@ nav {
   transform-origin: bottom left; 
 }
 
-/* --- TEXT LINK --- */
 .text-link {
   text-decoration: none; 
   color: var(--text-main); 
@@ -162,6 +182,7 @@ nav {
   position: relative;
   z-index: 1;
   padding-bottom: 2px; 
+  transition: color 0.3s ease;
 }
 
 .text-link::before {
@@ -174,6 +195,10 @@ nav {
   background-color: var(--text-main); 
   z-index: -1; 
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.text-link:hover {
+  color: #111; 
 }
 
 .text-link:hover::before { 
@@ -201,7 +226,7 @@ header {
   line-height: 1.1; 
   margin-bottom: 25px; 
   max-width: 900px; 
-  color: #111; 
+  color: var(--text-main); 
 }
 
 .hero-desc { 
@@ -210,24 +235,17 @@ header {
   max-width: 550px; 
   font-weight: 400; 
   line-height: 1.6; 
+  margin-left: 5px; 
 }
 
 /* --- PROJECTS --- */
 .projects-wrap { 
-  max-width: var(--max-width); 
+  max-width: 900px; 
   margin: 0 auto; 
   padding: 0 50px 100px 50px; 
   display: flex; 
-  gap: 40px; 
-  align-items: flex-start; 
-}
-
-.projects-col { 
-  flex: 1; 
-  display: flex; 
   flex-direction: column; 
-  gap: 60px; 
-  min-width: 0; 
+  gap: 100px; 
 }
 
 .project-card { 
@@ -258,7 +276,12 @@ header {
   width: 100%; 
   height: auto; 
   display: block; 
-  transition: filter 0.4s ease; 
+  opacity: 0; /* Skryté před načtením */
+  transition: opacity 0.6s ease, filter 0.4s ease; 
+}
+
+.project-img.img-loaded {
+  opacity: 1; /* Viditelné po načtení */
 }
 
 .project-card:hover .card-img-wrap { 
@@ -266,7 +289,7 @@ header {
 }
 
 .project-card:hover .project-img { 
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08)); 
+  filter: drop-shadow(var(--card-shadow)); 
 }
 
 .card-body { 
@@ -275,7 +298,7 @@ header {
 
 .card-label { 
   font-size: 0.75rem; 
-  color: #888; 
+  color: var(--text-muted); 
   letter-spacing: 1.5px; 
   font-weight: 600; 
   font-style: italic; 
@@ -289,10 +312,10 @@ header {
   font-weight: 700; 
   letter-spacing: -1px; 
   margin-bottom: 15px; 
-  color: #111; 
+  color: var(--text-main); 
 }
 
-/* BUTTON (Zvýrazňovač) */
+/* BUTTON */
 .liquid-btn {
   display: inline-flex; 
   align-items: center; 
@@ -306,6 +329,7 @@ header {
   padding: 0; 
   position: relative;
   z-index: 1;
+  transition: color 0.3s ease;
 }
 
 .liquid-btn::after {
@@ -329,6 +353,10 @@ header {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
 }
 
+.liquid-btn:hover {
+  color: #111; 
+}
+
 .liquid-btn:hover::before { 
   transform: scaleX(1); 
   transform-origin: left; 
@@ -338,40 +366,14 @@ header {
   transform: translateX(6px); 
 }
 
-/* --- ARCHIVE / UPOUTÁVKA --- */
-.archive-section { 
-  width: 100%; 
-  margin: 0 auto; 
-  overflow: hidden; 
-}
-
-.archive-wrapper { 
-  max-width: var(--max-width); 
-  margin: 0 auto; 
-  padding: 0 50px; 
-}
-
-.archive-header { 
-  margin: 0 auto 40px auto; 
-  padding: 60px 0 0 0; 
-  border-top: 1px solid rgba(0,0,0,0.05); 
-}
-
-.archive-header h3 { 
-  font-size: 1.5rem; 
-  font-weight: 700; 
-  margin-bottom: 10px; 
-  letter-spacing: -0.5px; 
-}
-
-/* --- GALLERY GRID (foto.html) --- */
+/* --- GALLERY GRID --- */
 .gallery-wrap { 
   max-width: var(--max-width); 
   margin: 0 auto; 
   padding: 0 50px 100px 50px; 
   display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-  gap: 30px; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 40px; 
 }
 
 .polaroid-item { 
@@ -387,9 +389,20 @@ header {
   width: 100%; 
   height: auto; 
   display: block; 
-  background: transparent; /* Zajištění čistého pozadí */
-  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.06)); /* Chytrý stín obkreslující PNG */
+  background: transparent; 
+  border: none;
+  outline: none;
+  color: transparent; 
+  font-size: 0; 
+  /* AKTUALIZOVÁNO: Silnější stín, méně posunutý dolů, aby vynikl i nahoře */
+  filter: drop-shadow(0 2px 40px rgba(0,0,0,0.15)); 
   border-radius: 0; 
+  opacity: 0; /* Skryté před načtením */
+  transition: opacity 0.6s ease, filter 0.4s ease; 
+}
+
+.polaroid-item img.img-loaded {
+  opacity: 1; /* Viditelné po načtení */
 }
 
 .polaroid-item:hover { 
@@ -402,7 +415,7 @@ header {
   max-width: var(--max-width); 
   margin: 0 auto; 
   padding: 100px 50px; 
-  border-top: 1px solid #eee; 
+  border-top: 1px solid var(--border-color); 
   text-align: center; 
 }
 
@@ -418,6 +431,7 @@ header {
   margin-top: 10px; 
   cursor: pointer; 
   z-index: 1;
+  transition: color 0.3s ease;
 }
 
 .contact-link-large::after { 
@@ -430,8 +444,12 @@ header {
   background-color: var(--accent); 
   transform: scaleX(0); 
   transform-origin: right; 
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); 
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); 
   z-index: -1; 
+}
+
+.contact-link-large:hover {
+  color: #111;
 }
 
 .contact-link-large:hover::after { 
@@ -442,7 +460,7 @@ header {
 /* --- FOOTER --- */
 .site-footer { 
   width: 100%; 
-  border-top: 1px solid rgba(0,0,0,0.1); 
+  border-top: 1px solid var(--border-color); 
   padding: 40px 50px; 
 }
 
@@ -473,7 +491,7 @@ header {
   color: var(--text-main); 
   text-decoration: none; 
   font-weight: 700; 
-  transition: opacity 0.2s ease; 
+  transition: opacity 0.3s ease; 
 }
 
 .footer-link:hover { 
@@ -522,7 +540,7 @@ header {
   z-index: 2000; 
   opacity: 0; 
   pointer-events: none; 
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, background-color 0.4s ease;
   overflow-y: auto; 
 }
 
@@ -537,7 +555,7 @@ header {
   padding: 0 20px 80px 20px; 
 }
 
-/* --- 50/50 LAYOUT FOTKY --- */
+/* --- 50/50 LAYOUT FOTKY V MODALU --- */
 .modal-photo-view { 
   display: flex; 
   width: 100vw;
@@ -557,11 +575,11 @@ header {
 .photo-details-col-left {
   flex: 0 0 50%; 
   height: 100vh;
-  background: transparent; /* Zajištěna průhlednost i v modálu */
+  background: transparent; 
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px; /* Vytvořen prostor, aby PNG mohlo krásně dýchat */
+  padding: 40px; 
 }
 
 .modal-photo-img { 
@@ -569,10 +587,10 @@ header {
   max-height: 85vh;
   width: auto;
   height: auto;
-  object-fit: contain; /* Původní cover nahrazen za contain, aby se PNG neořízlo */
+  object-fit: contain; 
   border-radius: 0;
   box-shadow: none; 
-  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1)); /* Chytrý stín kolem hrany PNG i v detailu */
+  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1)); 
 }
 
 .photo-details-col-right {
@@ -586,6 +604,7 @@ header {
   padding: 0 10%; 
   background-color: var(--bg-color);
   overflow-y: auto; 
+  transition: background-color 0.4s ease;
 }
 
 .modal-photo-title {
@@ -611,7 +630,7 @@ header {
 
 .modal-photo-desc {
   font-size: 1.1rem;
-  color: #444;
+  color: var(--text-muted);
   line-height: 1.8;
   max-width: 500px;
 }
@@ -633,6 +652,7 @@ header {
   z-index: 2001; 
   display: flex; 
   align-items: center;
+  transition: color 0.3s ease;
 }
 
 .close-modal span { 
@@ -654,6 +674,10 @@ header {
   z-index: -1;
 }
 
+.close-modal:hover {
+  color: #111;
+}
+
 .close-modal:hover span::after { 
   transform: scaleX(1); 
   transform-origin: left; 
@@ -673,7 +697,7 @@ header {
   background: #ddd; 
   object-fit: cover; 
   border-radius: 0; 
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+  box-shadow: var(--card-shadow); 
   position: relative; 
   top: 0; 
   transition: top 0.4s ease; 
@@ -695,7 +719,7 @@ header {
 
 .about-desc { 
   font-size: 1.1rem; 
-  color: #555; 
+  color: var(--text-muted); 
   line-height: 1.7; 
   margin-bottom: 40px; 
   max-width: 600px; 
@@ -704,12 +728,12 @@ header {
 .services-list { 
   margin-top: 40px; 
   padding-top: 40px; 
-  border-top: 1px solid rgba(0,0,0,0.06); 
+  border-top: 1px solid var(--border-color); 
 }
 
 .services-list h4 { 
   font-size: 0.75rem; 
-  color: #888; 
+  color: var(--text-muted); 
   letter-spacing: 1.5px; 
   font-weight: 600; 
   margin-bottom: 20px; 
@@ -725,15 +749,15 @@ header {
 .service-item { 
   font-size: 1.05rem; 
   font-weight: 500; 
-  color: #333; 
+  color: var(--text-main); 
   display: flex; 
   align-items: center; 
   gap: 12px; 
-  transition: color 0.3s ease; 
+  transition: opacity 0.3s ease; 
 }
 
 .service-item:hover { 
-  color: #000; 
+  opacity: 0.6; 
 }
 
 .service-item::before { 
@@ -761,8 +785,8 @@ header {
 .form-input { 
   width: 100%; 
   padding: 18px 20px; 
-  background: #fff; 
-  border: 1px solid rgba(0,0,0,0.1); 
+  background: var(--input-bg); 
+  border: 1px solid var(--border-color); 
   border-radius: 0; 
   font-family: inherit; 
   font-size: 1rem; 
@@ -773,7 +797,7 @@ header {
 }
 
 .form-input:focus { 
-  border-color: #000; 
+  border-color: var(--text-main); 
   box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
 }
 
@@ -785,44 +809,9 @@ header {
   justify-content: flex-start; 
 }
 
-/* --- 404 STRÁNKA --- */
-.error-wrap { 
-  height: 100vh; 
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  text-align: center; 
-  padding: 0 20px; 
-}
-
-.error-code { 
-  font-size: clamp(6rem, 15vw, 12rem); 
-  font-weight: 800; 
-  font-style: italic; 
-  line-height: 0.8; 
-  letter-spacing: -4px; 
-  color: var(--text-main); 
-  margin-bottom: 10px; 
-}
-
-.error-subtitle { 
-  font-size: clamp(1.5rem, 4vw, 2.5rem); 
-  font-weight: 700; 
-  letter-spacing: -1px; 
-  margin-bottom: 20px; 
-  color: var(--text-main); 
-}
-
-.error-desc { 
-  font-size: 1.1rem; 
-  color: var(--text-muted); 
-  margin-bottom: 40px; 
-}
-
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  nav, header, .gallery-wrap { 
+  nav, header, .gallery-wrap, .projects-wrap { 
     padding: 0 20px; 
   }
   
@@ -861,17 +850,12 @@ header {
   }
   
   .projects-wrap { 
-    padding: 0 20px 80px 20px; 
-    flex-direction: column; 
+    padding-bottom: 80px; 
     gap: 60px; 
   }
   
-  .archive-wrapper { 
-    padding: 0 20px; 
-  }
-  
   .gallery-wrap { 
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
     gap: 15px; 
   }
   
@@ -911,7 +895,7 @@ header {
     flex: 0 0 50vh; 
     width: 100%; 
     height: 50vh; 
-    padding: 40px 20px; /* Aby nebylo PNG na mobilu natlačené na hranu */
+    padding: 40px 20px; 
   }
   
   .photo-details-col-right { 
