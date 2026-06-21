@@ -525,19 +525,38 @@ header {
 
 .zet-logo-link { 
   display: flex; 
-  align-items: center; 
-  transition: opacity 0.3s ease; 
-  opacity: 1; 
+  align-items: center;
+  position: relative;
+  opacity: 1;
+  cursor: pointer;
 }
 
-.zet-logo-link:hover { 
-  opacity: 0.5; 
+/* Přesná zelená varianta SVG přes masku */
+.zet-logo-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #44F182;
+  -webkit-mask: url('assets/zet.svg') center / contain no-repeat;
+  mask: url('assets/zet.svg') center / contain no-repeat;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .zet-footer-icon { 
   height: 22px; 
   width: auto; 
-  display: block; 
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.zet-logo-link:hover .zet-footer-icon {
+  opacity: 0;
+}
+
+.zet-logo-link:hover::after {
+  opacity: 1;
 }
 
 /* --- MODAL (OBECNÉ) --- */
