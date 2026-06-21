@@ -9,7 +9,11 @@
   --nav-bg: rgba(252,252,252,0.85);
   --input-bg: #fff;
   --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  --image-shadow-stable: 0 18px 38px rgba(0,0,0,0.16);
+  --gallery-shadow-stable: 0 16px 36px rgba(0,0,0,0.18);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 
 /* --- DARK MODE (Ztlumený "papírový" režim pro šetření očí) --- */
 @media (prefers-color-scheme: dark) {
@@ -21,6 +25,8 @@
     --nav-bg: rgba(228,228,228,0.85); /* Odpovídající poloprůhledné pozadí navigace */
     --input-bg: #ebebeb; 
     --card-shadow: 0 20px 40px rgba(0,0,0,0.12); /* Nepatrně silnější stín pro zachování hloubky */
+    --image-shadow-stable: 0 18px 38px rgba(0,0,0,0.18);
+    --gallery-shadow-stable: 0 16px 36px rgba(0,0,0,0.20);
   }
 }
 
@@ -82,7 +88,7 @@ body {
   font-size: 1.4rem; 
   letter-spacing: -1px;
   transform: translateY(100%);
-  animation: slideUpLoader 1s cubic-bezier(0.16,1,0.3,1) forwards 0.2s,
+  animation: slideUpLoader 1s var(--ease-smooth) forwards 0.2s,
            pulseText 1.5s infinite ease-in-out 1.2s;
 }
 
@@ -104,7 +110,7 @@ body {
 .reveal-up {
   opacity: 0; 
   transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  transition: opacity 0.8s ease, transform 0.8s var(--ease-smooth);
 }
 
 .reveal-up.is-visible { 
@@ -194,7 +200,7 @@ nav {
   height: 2px; 
   background-color: var(--text-main); 
   z-index: -1; 
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s var(--ease-smooth);
 }
 
 .text-link:hover {
@@ -258,18 +264,17 @@ header {
   z-index: 1; 
   transform: translateZ(0); 
   backface-visibility: hidden; 
-  will-change: transform; 
 }
 
 .card-img-wrap { 
   width: 100%; 
   border-radius: 0; 
-  overflow: hidden; 
+  overflow: visible; 
   background: transparent; 
   position: relative; 
-  transform: translate3d(0,0,0); 
-  will-change: transform; 
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+  transform: translateY(0) scale(1) translateZ(0); 
+  transform-origin: center center; 
+  transition: transform 0.55s var(--ease-smooth); 
 }
 
 .project-img { 
@@ -277,7 +282,11 @@ header {
   height: auto; 
   display: block; 
   opacity: 0; /* Skryté před načtením */
-  transition: opacity 0.6s ease, filter 0.4s ease; 
+  transform: scale(1) translateZ(0);
+  backface-visibility: hidden;
+  /* Stín je konstantní i při hoveru. U průhledných PNG/WebP se tak filtr nezačne počítat až po najetí myší. */
+  filter: drop-shadow(var(--image-shadow-stable));
+  transition: opacity 0.6s ease, transform 0.55s var(--ease-smooth); 
 }
 
 .project-img.img-loaded {
@@ -285,11 +294,11 @@ header {
 }
 
 .project-card:hover .card-img-wrap { 
-  transform: translate3d(0, -10px, 0); 
+  transform: translateY(-4px) scale(1.018) translateZ(0); 
 }
 
 .project-card:hover .project-img { 
-  filter: drop-shadow(var(--card-shadow)); 
+  transform: scale(1.006) translateZ(0);
 }
 
 .card-body { 
@@ -350,7 +359,7 @@ header {
   z-index: -1; 
   transform: scaleX(0); 
   transform-origin: right; 
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  transition: transform 0.3s var(--ease-smooth);
 }
 
 .liquid-btn:hover {
@@ -380,9 +389,10 @@ header {
   width: 100%; 
   cursor: pointer; 
   position: relative; 
-  transform: translateZ(0); 
-  will-change: transform; 
-  transition: transform 0.4s ease, filter 0.4s ease; 
+  transform: translateY(0) scale(1) translateZ(0); 
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: transform 0.5s var(--ease-smooth); 
 }
 
 .polaroid-item img { 
@@ -394,11 +404,12 @@ header {
   outline: none;
   color: transparent; 
   font-size: 0; 
-  /* AKTUALIZOVÁNO: Silnější stín, méně posunutý dolů, aby vynikl i nahoře */
-  filter: drop-shadow(0 2px 40px rgba(0,0,0,0.15)); 
+  filter: drop-shadow(var(--gallery-shadow-stable)); 
+  transform: translateZ(0);
+  backface-visibility: hidden;
   border-radius: 0; 
   opacity: 0; /* Skryté před načtením */
-  transition: opacity 0.6s ease, filter 0.4s ease; 
+  transition: opacity 0.6s ease; 
 }
 
 .polaroid-item img.img-loaded {
@@ -406,7 +417,7 @@ header {
 }
 
 .polaroid-item:hover { 
-  transform: translateY(-8px); 
+  transform: translateY(-4px) scale(1.02) translateZ(0); 
   z-index: 10; 
 }
 
@@ -444,7 +455,7 @@ header {
   background-color: var(--accent); 
   transform: scaleX(0); 
   transform-origin: right; 
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); 
+  transition: transform 0.3s var(--ease-smooth); 
   z-index: -1; 
 }
 
@@ -670,7 +681,7 @@ header {
   background-color: var(--accent); 
   transform: scaleX(0); 
   transform-origin: right; 
-  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); 
+  transition: transform 0.3s var(--ease-smooth); 
   z-index: -1;
 }
 
@@ -698,13 +709,13 @@ header {
   object-fit: cover; 
   border-radius: 0; 
   box-shadow: var(--card-shadow); 
-  position: relative; 
-  top: 0; 
-  transition: top 0.4s ease; 
+  transform: translateY(0) scale(1) translateZ(0);
+  transform-origin: center center;
+  transition: transform 0.5s var(--ease-smooth), box-shadow 0.5s ease; 
 }
 
 .about-photo:hover { 
-  top: -5px; 
+  transform: translateY(-3px) scale(1.015) translateZ(0); 
 }
 
 .about-title { 
@@ -807,6 +818,28 @@ header {
   font-size: 1rem; 
   margin-top: 10px; 
   justify-content: flex-start; 
+}
+
+
+/* --- MOTION OPTIMALIZACE --- */
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .card-img-wrap,
+  .project-card:hover .project-img,
+  .polaroid-item:hover,
+  .about-photo:hover {
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* --- RESPONSIVE --- */
