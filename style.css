@@ -159,9 +159,11 @@ body {
   transition: transform 0.3s ease-out;
 }
 
-.animated-link:hover::after { 
-  transform: scaleX(1); 
-  transform-origin: bottom left; 
+@media (hover: hover) {
+  .animated-link:hover::after { 
+    transform: scaleX(1); 
+    transform-origin: bottom left; 
+  }
 }
 
 .text-link {
@@ -186,13 +188,14 @@ body {
   transition: all 0.3s var(--ease-smooth);
 }
 
-.text-link:hover {
-  color: #111; 
-}
-
-.text-link:hover::before { 
-  height: 45%; 
-  background-color: var(--accent); 
+@media (hover: hover) {
+  .text-link:hover {
+    color: #111; 
+  }
+  .text-link:hover::before { 
+    height: 45%; 
+    background-color: var(--accent); 
+  }
 }
 
 /* --- HOMEPAGE SPLIT LAYOUT --- */
@@ -287,13 +290,14 @@ body {
   transition: width 0.3s var(--ease-smooth), background-color 0.3s ease;
 }
 
-.service-item:hover {
-  color: var(--text-main);
-}
-
-.service-item:hover::before {
-  width: 35px;
-  background-color: var(--accent);
+@media (hover: hover) {
+  .service-item:hover {
+    color: var(--text-main);
+  }
+  .service-item:hover::before {
+    width: 35px;
+    background-color: var(--accent);
+  }
 }
 
 /* --- LEVÁ PATIČKA (DESKTOP) --- */
@@ -335,12 +339,13 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.zet-logo-link:hover .zet-footer-icon {
-  opacity: 0;
-}
-
-.zet-logo-link:hover::after {
-  opacity: 1;
+@media (hover: hover) {
+  .zet-logo-link:hover .zet-footer-icon {
+    opacity: 0;
+  }
+  .zet-logo-link:hover::after {
+    opacity: 1;
+  }
 }
 
 /* GITHUB A EMAIL HOVER EFFECT */
@@ -368,13 +373,14 @@ body {
   transition: transform 0.3s ease-out;
 }
 
-.home-footer-links .footer-link:hover {
-  color: var(--text-main);
-}
-
-.home-footer-links .footer-link:hover::after { 
-  transform: scaleX(1); 
-  transform-origin: bottom left; 
+@media (hover: hover) {
+  .home-footer-links .footer-link:hover {
+    color: var(--text-main);
+  }
+  .home-footer-links .footer-link:hover::after { 
+    transform: scaleX(1); 
+    transform-origin: bottom left; 
+  }
 }
 
 
@@ -435,12 +441,13 @@ body {
   opacity: 1;
 }
 
-.project-card:hover .card-img-wrap { 
-  transform: translateY(-4px) scale(1.018) translateZ(0); 
-}
-
-.project-card:hover .project-img { 
-  transform: scale(1.006) translateZ(0);
+@media (hover: hover) {
+  .project-card:hover .card-img-wrap { 
+    transform: translateY(-4px) scale(1.018) translateZ(0); 
+  }
+  .project-card:hover .project-img { 
+    transform: scale(1.006) translateZ(0);
+  }
 }
 
 .card-body { 
@@ -505,17 +512,17 @@ body {
   transition: transform 0.3s var(--ease-smooth);
 }
 
-.liquid-btn:hover {
-  color: #111; 
-}
-
-.liquid-btn:hover::before { 
-  transform: scaleX(1); 
-  transform-origin: left; 
-}
-
-.liquid-btn:hover::after { 
-  transform: translateX(6px); 
+@media (hover: hover) {
+  .liquid-btn:hover {
+    color: #111; 
+  }
+  .liquid-btn:hover::before { 
+    transform: scaleX(1); 
+    transform-origin: left; 
+  }
+  .liquid-btn:hover::after { 
+    transform: translateX(6px); 
+  }
 }
 
 /* --- PROGRESS DOTS (MAGNETICKÝ EFEKT) --- */
@@ -566,11 +573,14 @@ body {
   right: -20px;
 }
 
-.progress-dot:hover {
-  width: 12px;
-  height: 12px;
-  background: var(--text-main);
-  transform: scale(1.1) translateX(-3px);
+/* Magnetický hover efekt POUZE na zařízeních s myší */
+@media (hover: hover) {
+  .progress-dot:hover {
+    width: 12px;
+    height: 12px;
+    background: var(--text-main);
+    transform: scale(1.1) translateX(-3px);
+  }
 }
 
 .progress-dot.active {
@@ -650,15 +660,15 @@ body {
   transition: transform 0.3s ease-out;
 }
 
-.close-modal:hover {
-  color: #111;
+@media (hover: hover) {
+  .close-modal:hover {
+    color: #111;
+  }
+  .close-modal:hover::after { 
+    transform: scaleX(1); 
+    transform-origin: bottom left; 
+  }
 }
-
-.close-modal:hover::after { 
-  transform: scaleX(1); 
-  transform-origin: bottom left; 
-}
-
 
 /* --- KONTAKT FORM --- */
 .contact-form { 
